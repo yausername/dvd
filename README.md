@@ -5,3 +5,9 @@
 Download videos from [1000+ sites](https://ytdl-org.github.io/youtube-dl/supportedsites.html) supported by youtube-dl
 
 Download latest apks from the [releases page](https://github.com/yausername/dvd/releases)
+
+</br>
+
+![home](https://imgur.com/download/DdhdBuc) ![home](https://imgur.com/download/pdoJuHC)
+
+![home](https://imgur.com/download/NxTJu6i) ![home](https://imgur.com/download/z3keg39)
