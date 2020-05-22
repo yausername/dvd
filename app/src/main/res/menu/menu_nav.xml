@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home_fragment"
+        android:icon="@drawable/ic_home_24dp"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/downloads_fragment"
+        android:icon="@drawable/ic_cloud_download_24dp"
+        android:title="Downloads" />
+
+    <item
+        android:id="@+id/youtube_dl_fragment"
+        android:icon="@drawable/ic_code_24dp"
+        android:title="youtube-dl" />
+</menu>

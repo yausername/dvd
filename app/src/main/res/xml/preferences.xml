@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <ListPreference
+        app:key="Theme"
+        app:title="Theme"
+        app:useSimpleSummaryProvider="true"
+        app:iconSpaceReserved="false"/>
+
+    <Preference
+        android:title="Download Location"
+        android:key="downloadLocation"
+        app:summary="Default download location"
+        app:iconSpaceReserved="false">
+    </Preference>
+
+    <Preference
+        android:title="About"
+        app:summary="https://github.com/yausername/dvd"
+        app:persistent="false"
+        app:iconSpaceReserved="false">
+        <intent android:action="android.intent.action.VIEW"
+            android:data="https://github.com/yausername/dvd" />
+    </Preference>
+</PreferenceScreen>
