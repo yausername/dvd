@@ -3,6 +3,7 @@ package com.yausername.dvd.adapters
 
 import android.content.Intent
 import android.net.Uri
+import android.provider.DocumentsContract
 import android.text.format.Formatter
 import android.view.LayoutInflater
 import android.view.View
@@ -57,8 +58,10 @@ class DownloadsAdapter : RecyclerView.Adapter<DownloadsAdapter.ViewHolder>() {
 
     private fun openFolder(path: String, view: View) {
         val intent = Intent(Intent.ACTION_VIEW)
-        val uri: Uri = Uri.parse(path + "/")
-        intent.setDataAndType(uri, "*/*")
+        val treeUri = Uri.parse(path)
+        val docId = DocumentsContract.getTreeDocumentId(treeUri)
+        val uri = DocumentsContract.buildDocumentUriUsingTree(treeUri, docId)
+        intent.setDataAndType(uri, DocumentsContract.Document.MIME_TYPE_DIR)
         startActivity(view.context, Intent.createChooser(intent, "Open folder"), null)
     }
 }

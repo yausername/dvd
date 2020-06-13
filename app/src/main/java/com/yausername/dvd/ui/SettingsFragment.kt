@@ -11,7 +11,6 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.PreferenceManager
 import com.yausername.dvd.R
-import getPathFromUri
 
 class SettingsFragment : PreferenceFragmentCompat() {
 
@@ -67,7 +66,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             6969 -> {
-                val path = getPathFromUri(data!!.data!!)
+                val path = data!!.data!!.toString()
                 val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
                 editor.putString("downloadLocation", path).apply()
                 findPreference<Preference>("downloadLocation")?.setSummary(path)

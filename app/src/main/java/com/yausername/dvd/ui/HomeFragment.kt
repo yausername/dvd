@@ -27,7 +27,6 @@ import com.yausername.dvd.model.VidInfoItem
 import com.yausername.dvd.vm.LoadState
 import com.yausername.dvd.vm.VidInfoViewModel
 import com.yausername.dvd.work.DownloadWorker
-import getPathFromUri
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
@@ -124,7 +123,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
         when (requestCode) {
             42069 -> {
                 data?.data?.let { uri ->
-                    getPathFromUri(uri)
+                    uri.toString()
                 }?.let {
                     val vidFormatsVm =
                         ViewModelProvider(activity as MainActivity).get(VidInfoViewModel::class.java)
