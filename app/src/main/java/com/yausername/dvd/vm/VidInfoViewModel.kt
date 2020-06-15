@@ -44,7 +44,9 @@ class VidInfoViewModel : ViewModel() {
             }
 
             updateLoading(LoadState.LOADED)
-            updateThumbnail(vidInfo.thumbnail)
+            vidInfo.thumbnail?.let {
+                updateThumbnail(it)
+            }
             submit(vidInfo)
         }
     }

@@ -75,11 +75,12 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         val treeUri = Uri.parse(downloadDir)
         val docId = DocumentsContract.getTreeDocumentId(treeUri)
         val destDir = DocumentsContract.buildDocumentUriUsingTree(treeUri, docId)
+        var destUri: Uri? = null
         tmpFile.listFiles().forEach {
             val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(it.extension) ?: "*/*"
-            val copy = DocumentsContract.createDocument(applicationContext.contentResolver, destDir, mimeType, it.name)
+            destUri = DocumentsContract.createDocument(applicationContext.contentResolver, destDir, mimeType, it.name)
             val ins = it.inputStream()
-            val ops = applicationContext.contentResolver.openOutputStream(copy)
+            val ops = applicationContext.contentResolver.openOutputStream(destUri!!)
             IOUtils.copy(ins, ops)
             IOUtils.closeQuietly(ops)
             IOUtils.closeQuietly(ins)
@@ -93,7 +94,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
             DownloadsRepository(downloadsDao)
         val download =
             Download(name, Date().time, size)
-        download.downloadedPath = downloadDir
+        download.downloadedPath = destUri.toString()
         download.downloadedPercent = 100.00
         download.downloadedSize = size
         download.mediaType = if(vcodec == "none" && acodec != "none") "audio" else "video"
