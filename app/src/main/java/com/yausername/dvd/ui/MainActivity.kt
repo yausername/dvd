@@ -6,15 +6,19 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.webkit.URLUtil
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.iterator
 import androidx.drawerlayout.widget.DrawerLayout
+import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.NavigationUI
 import androidx.navigation.ui.setupWithNavController
 import com.yausername.dvd.R
+import com.yausername.dvd.vm.VidInfoViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : AppCompatActivity(), NavActivity {
@@ -81,9 +85,16 @@ class MainActivity : AppCompatActivity(), NavActivity {
 
     private fun handleIntent(intent: Intent) {
 
-        if (Intent.ACTION_SEARCH == intent.action) {
-            val query = intent.getStringExtra(SearchManager.QUERY)
-            //use the query to search your data somehow
+        if (Intent.ACTION_SEND == intent.action) {
+            intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
+                if(!URLUtil.isValidUrl(it)) {
+                    Toast.makeText(applicationContext, "Invalid url", Toast.LENGTH_SHORT).show()
+                    return
+                }
+                val vidFormatsVm =
+                    ViewModelProvider(this).get(VidInfoViewModel::class.java)
+                vidFormatsVm.fetchInfo(it)
+            }
         }
     }
 
