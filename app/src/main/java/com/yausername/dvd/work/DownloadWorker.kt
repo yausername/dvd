@@ -66,26 +66,28 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         } else {
             request.addOption("-f", formatId)
         }
-        YoutubeDL.getInstance()
-            .execute(request, DownloadProgressCallback { progress, etaInSeconds ->
-                showProgress(id.hashCode(), name, progress.toInt(), etaInSeconds)
-            })
 
-
-        val treeUri = Uri.parse(downloadDir)
-        val docId = DocumentsContract.getTreeDocumentId(treeUri)
-        val destDir = DocumentsContract.buildDocumentUriUsingTree(treeUri, docId)
         var destUri: Uri? = null
-        tmpFile.listFiles().forEach {
-            val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(it.extension) ?: "*/*"
-            destUri = DocumentsContract.createDocument(applicationContext.contentResolver, destDir, mimeType, it.name)
-            val ins = it.inputStream()
-            val ops = applicationContext.contentResolver.openOutputStream(destUri!!)
-            IOUtils.copy(ins, ops)
-            IOUtils.closeQuietly(ops)
-            IOUtils.closeQuietly(ins)
+        try {
+            YoutubeDL.getInstance()
+                .execute(request, DownloadProgressCallback { progress, etaInSeconds ->
+                    showProgress(id.hashCode(), name, progress.toInt(), etaInSeconds)
+                })
+            val treeUri = Uri.parse(downloadDir)
+            val docId = DocumentsContract.getTreeDocumentId(treeUri)
+            val destDir = DocumentsContract.buildDocumentUriUsingTree(treeUri, docId)
+            tmpFile.listFiles().forEach {
+                val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(it.extension) ?: "*/*"
+                destUri = DocumentsContract.createDocument(applicationContext.contentResolver, destDir, mimeType, it.name)
+                val ins = it.inputStream()
+                val ops = applicationContext.contentResolver.openOutputStream(destUri!!)
+                IOUtils.copy(ins, ops)
+                IOUtils.closeQuietly(ops)
+                IOUtils.closeQuietly(ins)
+            }
+        } finally {
+            tmpFile.deleteRecursively()
         }
-        tmpFile.deleteRecursively()
 
         val downloadsDao = AppDatabase.getDatabase(
             applicationContext
