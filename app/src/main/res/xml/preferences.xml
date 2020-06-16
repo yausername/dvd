@@ -15,6 +15,13 @@
     </Preference>
 
     <Preference
+        android:title="Update youtube-dl"
+        android:key="updateYoutubeDL"
+        app:persistent="false"
+        app:iconSpaceReserved="false">
+    </Preference>
+
+    <Preference
         android:title="About"
         app:summary="https://github.com/yausername/dvd"
         app:persistent="false"
