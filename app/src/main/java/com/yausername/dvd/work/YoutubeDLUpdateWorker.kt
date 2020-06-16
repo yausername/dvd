@@ -11,7 +11,6 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.yausername.dvd.R
 import com.yausername.youtubedl_android.YoutubeDL
-import com.yausername.youtubedl_android.YoutubeDLUpdater
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 
@@ -39,7 +38,7 @@ class YoutubeDLUpdateWorker(appContext: Context, params: WorkerParameters) :
         setForeground(foregroundInfo)
 
         val result = YoutubeDL.getInstance().updateYoutubeDL(applicationContext)
-        if (result == YoutubeDLUpdater.UpdateStatus.ALREADY_UP_TO_DATE) {
+        if (result == YoutubeDL.UpdateStatus.ALREADY_UP_TO_DATE) {
             withContext(Dispatchers.Main){
                 Toast.makeText(applicationContext, "already up to date", Toast.LENGTH_SHORT).show();
             }
