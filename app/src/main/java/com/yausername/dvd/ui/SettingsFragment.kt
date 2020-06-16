@@ -1,8 +1,10 @@
 package com.yausername.dvd.ui
 
 import android.content.Intent
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.DocumentsContract
 import android.view.Menu
 import android.view.View
 import android.widget.Toast
@@ -51,7 +53,10 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val downloadLocationPref: Preference? = findPreference("downloadLocation")
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
         downloadLocationPref?.let {
-            it.summary = sharedPrefs.getString("downloadLocation", "Set default download location")
+            val location = sharedPrefs.getString("downloadLocation", null)
+            location?.apply { updatePathInSummary(it, this) } ?: run {
+                it.summary = "Not set"
+            }
             it.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 val i = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
                 i.addCategory(Intent.CATEGORY_DEFAULT)
@@ -62,7 +67,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         val updateYoutubeDLPref: Preference? = findPreference("updateYoutubeDL")
         updateYoutubeDLPref?.let {
-            it.summary = YoutubeDL.getInstance().version(requireContext().applicationContext)
+            it.summary = YoutubeDL.getInstance().version(requireContext().applicationContext) ?: "Tap to update"
             it.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 updateYoutubeDL()
                 true
@@ -126,11 +131,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
                     val path = it.toString()
                     val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
                     editor.putString("downloadLocation", path).apply()
-                    findPreference<Preference>("downloadLocation")?.setSummary(path)
+                    findPreference<Preference>("downloadLocation")?.let { preference ->
+                        updatePathInSummary(preference,path)
+                    }
                 }
 
             }
         }
+    }
+
+    private fun updatePathInSummary(preference: Preference, path: String) {
+        val docId = DocumentsContract.getTreeDocumentId(Uri.parse(path))
+        docId?.apply { preference.summary = docId }
+            ?: run { preference.summary = path }
     }
 
 }

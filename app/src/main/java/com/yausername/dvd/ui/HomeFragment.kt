@@ -125,6 +125,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
                 data?.data?.let { uri ->
                     uri.toString()
                 }?.let {
+                    updateDefaultDownloadLocation(it)
                     val vidFormatsVm =
                         ViewModelProvider(activity as MainActivity).get(VidInfoViewModel::class.java)
                     startDownload(vidFormatsVm.selectedItem, it)
@@ -132,6 +133,11 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
 
             }
         }
+    }
+
+    private fun updateDefaultDownloadLocation(path: String) {
+        val prefs = PreferenceManager.getDefaultSharedPreferences(context)
+        prefs.getString("downloadLocation", null) ?: prefs.edit().putString("downloadLocation", path).apply()
     }
 
     private fun startDownload(vidFormatItem: VidInfoItem.VidFormatItem, downloadDir: String) {

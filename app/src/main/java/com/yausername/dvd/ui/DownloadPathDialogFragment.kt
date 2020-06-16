@@ -3,14 +3,16 @@ package com.yausername.dvd.ui
 import android.app.Dialog
 import android.content.Context
 import android.content.DialogInterface
+import android.net.Uri
 import android.os.Bundle
+import android.provider.DocumentsContract
 import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import androidx.preference.PreferenceManager
 import com.yausername.dvd.R
 import kotlinx.android.synthetic.main.dialog_fragment_download_path.view.*
 
-class DownloadPathDialogFragment: DialogFragment() {
+class DownloadPathDialogFragment : DialogFragment() {
 
     private lateinit var listener: DialogListener
 
@@ -26,7 +28,14 @@ class DownloadPathDialogFragment: DialogFragment() {
 
             val view = inflater.inflate(R.layout.dialog_fragment_download_path, null)
             val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
-            view.download_path_tv.text = sharedPrefs.getString("downloadLocation", "Not set")
+            val location = sharedPrefs.getString("downloadLocation", null)
+            if (location != null) {
+                val docId = DocumentsContract.getTreeDocumentId(Uri.parse(location))
+                docId?.apply { view.download_path_tv.text = docId }
+                    ?: run { view.download_path_tv.text = location }
+            } else {
+                view.download_path_tv.text = "Not set"
+            }
             builder.setView(view)
                 .setIcon(R.drawable.ic_folder_24dp)
                 .setTitle("Download location")
@@ -40,7 +49,7 @@ class DownloadPathDialogFragment: DialogFragment() {
                     })
 
             builder.create()
-       } ?: throw IllegalStateException("Activity cannot be null")
+        } ?: throw IllegalStateException("Activity cannot be null")
     }
 
     override fun onAttach(context: Context) {
@@ -49,8 +58,10 @@ class DownloadPathDialogFragment: DialogFragment() {
             listener = parentFragment as DialogListener
         } catch (e: ClassCastException) {
             // The activity doesn't implement the interface, throw exception
-            throw ClassCastException((context.toString() +
-                    " must implement DialogListener"))
+            throw ClassCastException(
+                (context.toString() +
+                        " must implement DialogListener")
+            )
         }
     }
 
