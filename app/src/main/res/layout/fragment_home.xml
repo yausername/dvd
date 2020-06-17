@@ -51,7 +51,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         android:fitsSystemWindows="true"
-        android:scaleType="centerInside"
+        android:scaleType="center"
         android:src="@drawable/toolbar"
         android:background="@color/colorPrimary" />
 

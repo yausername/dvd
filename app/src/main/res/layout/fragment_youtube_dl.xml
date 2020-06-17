@@ -17,7 +17,7 @@
         android:background="@color/colorPrimary"
         android:contentDescription="@null"
         android:fitsSystemWindows="true"
-        android:scaleType="centerInside"
+        android:scaleType="center"
         android:src="@drawable/toolbar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,0 +1,12 @@
+📀 Video downloader app powered by youtube-dl.
+
+🚀 Features
+* Download video/audio from 1000+ sites supported by youtube-dl.
+* Run custom youtube-dl commands.
+* Update youtube-dl version from settings.
+* Share link via other apps.
+
+🔗 References
+* dvd - https://github.com/yausername/dvd
+* youtubedl-android - https://github.com/yausername/youtubedl-android
+* youtube-dl - https://github.com/ytdl-org/youtube-dl
