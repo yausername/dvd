@@ -86,8 +86,9 @@ class MainActivity : AppCompatActivity(), NavActivity {
     private fun handleIntent(intent: Intent) {
 
         if (Intent.ACTION_SEND == intent.action) {
+            navigateHome()
             intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
-                if(!URLUtil.isValidUrl(it)) {
+                if (!URLUtil.isValidUrl(it)) {
                     Toast.makeText(applicationContext, "Invalid url", Toast.LENGTH_SHORT).show()
                     return
                 }
@@ -98,6 +99,12 @@ class MainActivity : AppCompatActivity(), NavActivity {
         }
     }
 
+    private fun navigateHome() {
+        val navController = Navigation.findNavController(this,
+            R.id.nav_host_fragment
+        )
+        navController.navigate(R.id.home_fragment)
+    }
 
 }
 
