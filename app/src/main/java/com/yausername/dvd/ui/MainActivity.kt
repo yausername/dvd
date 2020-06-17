@@ -1,6 +1,5 @@
 package com.yausername.dvd.ui
 
-import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -12,6 +11,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.iterator
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.NavOptions
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
@@ -100,10 +100,12 @@ class MainActivity : AppCompatActivity(), NavActivity {
     }
 
     private fun navigateHome() {
-        val navController = Navigation.findNavController(this,
+        val navController = Navigation.findNavController(
+            this,
             R.id.nav_host_fragment
         )
-        navController.navigate(R.id.home_fragment)
+        var navOptions = NavOptions.Builder().setLaunchSingleTop(true).build()
+        navController.navigate(R.id.home_fragment, null, navOptions)
     }
 
 }
