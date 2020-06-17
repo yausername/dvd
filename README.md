@@ -10,6 +10,4 @@ Download latest apks from the [releases page](https://github.com/yausername/dvd/
 
 </br>
 
-![home](https://imgur.com/download/DdhdBuc) ![home](https://imgur.com/download/pdoJuHC)
-
-![home](https://imgur.com/download/NxTJu6i) ![home](https://imgur.com/download/z3keg39)
+<img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" alt="screenshot1" width="300"/> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpg" alt="screenshot2" width="300"/> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpg" alt="screenshot3" width="300"/> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpg" alt="screenshot4" width="300"/> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg" alt="screenshot5" width="300"/>
