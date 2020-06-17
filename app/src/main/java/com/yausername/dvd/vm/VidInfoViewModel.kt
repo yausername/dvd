@@ -25,7 +25,7 @@ class VidInfoViewModel : ViewModel() {
         this.loadState.postValue(loadState)
     }
 
-    private fun updateThumbnail(thumbnail: String) {
+    private fun updateThumbnail(thumbnail: String?) {
         this.thumbnail.postValue(thumbnail)
     }
 
@@ -33,6 +33,7 @@ class VidInfoViewModel : ViewModel() {
         viewModelScope.launch {
             updateLoading(LoadState.LOADING)
             submit(null)
+            updateThumbnail(null)
             lateinit var vidInfo: VideoInfo
             try {
                 withContext(Dispatchers.IO) {
@@ -44,9 +45,7 @@ class VidInfoViewModel : ViewModel() {
             }
 
             updateLoading(LoadState.LOADED)
-            vidInfo.thumbnail?.let {
-                updateThumbnail(it)
-            }
+            updateThumbnail(vidInfo.thumbnail)
             submit(vidInfo)
         }
     }

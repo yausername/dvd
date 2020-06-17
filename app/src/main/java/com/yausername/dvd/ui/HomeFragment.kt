@@ -89,7 +89,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
                 val picasso = Picasso.get()
                 picasso.load(this)
                     .into(toolbar_image)
-            }
+            } ?: toolbar_image.setImageResource(R.drawable.toolbar)
         })
     }
 
