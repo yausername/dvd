@@ -20,7 +20,7 @@ class YoutubeDLUpdateWorker(appContext: Context, params: WorkerParameters) :
 
     private val notificationManager =
         appContext.getSystemService(Context.NOTIFICATION_SERVICE) as
-                NotificationManager
+                NotificationManager?
 
 
     override suspend fun doWork(): Result {
@@ -40,7 +40,7 @@ class YoutubeDLUpdateWorker(appContext: Context, params: WorkerParameters) :
         val result = YoutubeDL.getInstance().updateYoutubeDL(applicationContext)
         if (result == YoutubeDL.UpdateStatus.ALREADY_UP_TO_DATE) {
             withContext(Dispatchers.Main){
-                Toast.makeText(applicationContext, "already up to date", Toast.LENGTH_SHORT).show();
+                Toast.makeText(applicationContext, "already up to date", Toast.LENGTH_SHORT).show()
             }
         }
         return Result.success()

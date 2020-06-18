@@ -29,19 +29,19 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val themePreference: ListPreference? = findPreference("Theme")
         themePreference?.let {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                it.entries = arrayOf("Light", "Dark", "Set by Battery Saver");
+                it.entries = arrayOf("Light", "Dark", "Set by Battery Saver")
                 it.entryValues = arrayOf(
                     AppCompatDelegate.MODE_NIGHT_NO.toString(),
                     AppCompatDelegate.MODE_NIGHT_YES.toString(),
                     AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY.toString()
-                );
+                )
             } else {
-                it.entries = arrayOf("Light", "Dark", "System Default");
+                it.entries = arrayOf("Light", "Dark", "System Default")
                 it.entryValues = arrayOf(
                     AppCompatDelegate.MODE_NIGHT_NO.toString(),
                     AppCompatDelegate.MODE_NIGHT_YES.toString(),
                     AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM.toString()
-                );
+                )
             }
         }
         themePreference?.onPreferenceChangeListener =

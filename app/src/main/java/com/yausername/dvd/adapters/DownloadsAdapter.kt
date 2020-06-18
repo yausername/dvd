@@ -54,8 +54,7 @@ class DownloadsAdapter : RecyclerView.Adapter<DownloadsAdapter.ViewHolder>() {
 
     override fun getItemCount(): Int = mValues.size
 
-    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-    }
+    inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
     private fun viewContent(path: String, context: Context) {
         val intent = Intent(Intent.ACTION_VIEW)

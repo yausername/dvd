@@ -28,7 +28,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
 
     private val notificationManager =
         appContext.getSystemService(Context.NOTIFICATION_SERVICE) as
-                NotificationManager
+                NotificationManager?
 
 
     override suspend fun doWork(): Result {
