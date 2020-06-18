@@ -15,7 +15,6 @@ import com.yausername.dvd.R
 import com.yausername.dvd.database.AppDatabase
 import com.yausername.dvd.database.Download
 import com.yausername.dvd.database.DownloadsRepository
-import com.yausername.youtubedl_android.DownloadProgressCallback
 import com.yausername.youtubedl_android.YoutubeDL
 import com.yausername.youtubedl_android.YoutubeDLRequest
 import org.apache.commons.io.IOUtils
@@ -70,9 +69,9 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         var destUri: Uri? = null
         try {
             YoutubeDL.getInstance()
-                .execute(request, DownloadProgressCallback { progress, etaInSeconds ->
+                .execute(request) { progress, etaInSeconds ->
                     showProgress(id.hashCode(), name, progress.toInt(), etaInSeconds)
-                })
+                }
             val treeUri = Uri.parse(downloadDir)
             val docId = DocumentsContract.getTreeDocumentId(treeUri)
             val destDir = DocumentsContract.buildDocumentUriUsingTree(treeUri, docId)

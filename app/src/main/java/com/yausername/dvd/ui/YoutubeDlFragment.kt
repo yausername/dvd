@@ -17,7 +17,7 @@ import kotlinx.android.synthetic.main.fragment_youtube_dl.*
 
 class YoutubeDlFragment : Fragment(), View.OnClickListener {
 
-    var command: String? = null
+    private var command: String? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

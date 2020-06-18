@@ -108,7 +108,7 @@ class VidInfoAdapter(private val clickListener: VidInfoListener) :
             ITEM_VIEW_TYPE_ITEM -> ViewHolder.from(
                 parent
             )
-            else -> throw ClassCastException("Unknown viewType ${viewType}")
+            else -> throw ClassCastException("Unknown viewType $viewType")
         }
     }
 

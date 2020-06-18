@@ -46,9 +46,9 @@ class DownloadsAdapter : RecyclerView.Adapter<DownloadsAdapter.ViewHolder>() {
             } else {
                 format_ic.setImageResource(R.drawable.ic_video_24dp)
             }
-            setOnClickListener(View.OnClickListener {
+            setOnClickListener {
                 viewContent(item.downloadedPath, it.context)
-            })
+            }
         }
     }
 

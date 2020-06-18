@@ -14,7 +14,6 @@
             android:id="@+id/title_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Never gonna give you up"
             android:maxLines="2"
             android:ellipsize="marquee"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium"
@@ -41,7 +40,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:paddingHorizontal="5dp"
-                android:text="69%"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <TextView
@@ -50,7 +48,6 @@
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/download_percent_tv"
                 android:paddingHorizontal="5dp"
-                android:text="69M/420M"
                 android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
             <ImageView
@@ -58,8 +55,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/download_size_tv"
-                android:src="@drawable/ic_audio_24dp"
-                />
+                android:src="@drawable/ic_audio_24dp" />
 
         </RelativeLayout>
 

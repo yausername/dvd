@@ -4,7 +4,7 @@
     android:layout_width="wrap_content">
     <TextView
         android:id="@+id/download_path_tv"
-        android:text="Not set"
+        android:text="@string/val_not_set"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="30dp"

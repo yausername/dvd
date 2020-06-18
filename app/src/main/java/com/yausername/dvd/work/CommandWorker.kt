@@ -9,7 +9,6 @@ import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.yausername.dvd.R
-import com.yausername.youtubedl_android.DownloadProgressCallback
 import com.yausername.youtubedl_android.YoutubeDL
 import com.yausername.youtubedl_android.YoutubeDLRequest
 import java.util.*
@@ -56,9 +55,9 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
         }
 
         YoutubeDL.getInstance()
-            .execute(request, DownloadProgressCallback { progress, etaInSeconds ->
+            .execute(request) { progress, etaInSeconds ->
                 showProgress(id.hashCode(), "youtube-dl command", progress.toInt(), etaInSeconds)
-            })
+            }
 
         return Result.success()
     }

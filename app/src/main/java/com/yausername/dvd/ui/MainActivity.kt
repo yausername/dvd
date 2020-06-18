@@ -104,7 +104,7 @@ class MainActivity : AppCompatActivity(), NavActivity {
             this,
             R.id.nav_host_fragment
         )
-        var navOptions = NavOptions.Builder().setLaunchSingleTop(true).build()
+        val navOptions = NavOptions.Builder().setLaunchSingleTop(true).build()
         navController.navigate(R.id.home_fragment, null, navOptions)
     }
 

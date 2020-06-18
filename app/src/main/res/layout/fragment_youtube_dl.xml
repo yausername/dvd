@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar_image"
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="10dp"
-        android:text="youtube-dl commands"
+        android:text="@string/youtube_dl_commands"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         />
 
@@ -46,8 +46,9 @@
             android:layout_height="wrap_content"
             android:gravity="top"
             android:layout_marginTop="20dp"
-            android:hint="--extract-audio --audio-format mp3 -o /sdcard/Download/youtubedl-android/%(title)s.%(ext)s https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-            android:inputType="textMultiLine" />
+            android:hint="@string/sample_command"
+            android:inputType="textMultiLine"
+            android:importantForAutofill="no" />
 
         <Button
             android:id="@+id/command_btn"
@@ -56,7 +57,7 @@
             android:layout_below="@id/command_et"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="50dp"
-            android:text="execute" />
+            android:text="@string/execute" />
     </RelativeLayout>
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

@@ -9,7 +9,6 @@
         android:id="@+id/title_tv"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Never gonna give you up"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,7 +28,6 @@
             android:singleLine="true"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/views_ic"
-            android:text="Rick Ashley"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <ImageView
@@ -44,8 +42,7 @@
             android:id="@+id/views_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/thumbs_up_ic"
-            android:text="69" />
+            android:layout_toStartOf="@id/thumbs_up_ic" />
 
         <ImageView
             android:id="@+id/thumbs_up_ic"
@@ -59,8 +56,7 @@
             android:id="@+id/likes_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/thumbs_down_ic"
-            android:text="69" />
+            android:layout_toStartOf="@id/thumbs_down_ic" />
 
         <ImageView
             android:id="@+id/thumbs_down_ic"
@@ -74,8 +70,7 @@
             android:id="@+id/dislikes_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:text="69" />
+            android:layout_alignParentEnd="true" />
     </RelativeLayout>
 
 
@@ -91,7 +86,6 @@
             android:id="@+id/upload_date_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="2020-69-69"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
         <TextView
@@ -100,7 +94,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:paddingHorizontal="5dp"
-            android:text="69 seconds"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
     </RelativeLayout>
 

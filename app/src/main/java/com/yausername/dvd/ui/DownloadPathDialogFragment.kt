@@ -2,7 +2,6 @@ package com.yausername.dvd.ui
 
 import android.app.Dialog
 import android.content.Context
-import android.content.DialogInterface
 import android.net.Uri
 import android.os.Bundle
 import android.provider.DocumentsContract
@@ -34,19 +33,19 @@ class DownloadPathDialogFragment : DialogFragment() {
                 docId?.apply { view.download_path_tv.text = docId }
                     ?: run { view.download_path_tv.text = location }
             } else {
-                view.download_path_tv.text = "Not set"
+                view.download_path_tv.setText(R.string.val_not_set)
             }
             builder.setView(view)
                 .setIcon(R.drawable.ic_folder_24dp)
                 .setTitle("Download location")
-                .setNegativeButton("Pick folder",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        listener.onFilePicker(this)
-                    })
-                .setPositiveButton("ok",
-                    DialogInterface.OnClickListener { dialog, id ->
-                        listener.onOk(this)
-                    })
+                .setNegativeButton("Pick folder"
+                ) { dialog, id ->
+                    listener.onFilePicker(this)
+                }
+                .setPositiveButton("ok"
+                ) { dialog, id ->
+                    listener.onOk(this)
+                }
 
             builder.create()
         } ?: throw IllegalStateException("Activity cannot be null")

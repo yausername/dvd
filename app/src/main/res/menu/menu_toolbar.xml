@@ -5,11 +5,11 @@
         android:id="@+id/settings_fragment"
         android:icon="@android:drawable/ic_menu_save"
         android:menuCategory="secondary"
-        android:title="Settings" />
+        android:title="@string/settings" />
     <item
         android:id="@+id/search"
         android:icon="@drawable/ic_search_24dp"
-        android:title="Search"
+        android:title="@string/search"
         android:visible="false"
         app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|ifRoom" />

@@ -26,7 +26,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar_image"
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="10dp"
-        android:text="Paste a video link in the search bar"
+        android:text="@string/start_how_to"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         />
 

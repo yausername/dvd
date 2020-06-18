@@ -122,9 +122,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
             42069 -> {
-                data?.data?.let { uri ->
-                    uri.toString()
-                }?.let {
+                data?.data?.toString()?.let {
                     updateDefaultDownloadLocation(it)
                     val vidFormatsVm =
                         ViewModelProvider(activity as MainActivity).get(VidInfoViewModel::class.java)
@@ -226,7 +224,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if (requestCode == 1 && grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+        if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             DownloadPathDialogFragment().show(
                 childFragmentManager,
                 "choose download location"

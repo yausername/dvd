@@ -32,7 +32,6 @@
                 android:layout_toEndOf="@id/format_ic"
                 android:ellipsize="marquee"
                 android:singleLine="true"
-                android:text="302 - 1280x720 (720p60)"
                 android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
         </RelativeLayout>
 
@@ -47,16 +46,14 @@
                 android:id="@+id/ext_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_eye_24dp"
-                android:text="mp4" />
+                android:src="@drawable/ic_eye_24dp" />
 
             <TextView
                 android:id="@+id/size_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/ext_tv"
-                android:paddingHorizontal="7dp"
-                android:text="69MB" />
+                android:paddingHorizontal="7dp" />
 
 
             <TextView
@@ -64,16 +61,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/size_tv"
-                android:paddingHorizontal="7dp"
-                android:text="60 fps" />
+                android:paddingHorizontal="7dp" />
 
             <TextView
                 android:id="@+id/abr_tv"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/fps_tv"
-                android:paddingHorizontal="7dp"
-                android:text="60 abr" />
+                android:paddingHorizontal="7dp" />
 
         </RelativeLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>

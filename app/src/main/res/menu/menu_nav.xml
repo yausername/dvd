@@ -4,15 +4,15 @@
     <item
         android:id="@+id/home_fragment"
         android:icon="@drawable/ic_home_24dp"
-        android:title="Home" />
+        android:title="@string/home" />
 
     <item
         android:id="@+id/downloads_fragment"
         android:icon="@drawable/ic_cloud_download_24dp"
-        android:title="Downloads" />
+        android:title="@string/downloads" />
 
     <item
         android:id="@+id/youtube_dl_fragment"
         android:icon="@drawable/ic_code_24dp"
-        android:title="youtube-dl" />
+        android:title="@string/youtube_dl" />
 </menu>
