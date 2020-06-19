@@ -16,7 +16,7 @@ class App: Application() {
     override fun onCreate() {
         super.onCreate()
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        AppCompatDelegate.setDefaultNightMode(preferences.getString("Theme", AppCompatDelegate.MODE_NIGHT_YES.toString())!!.toInt())
+        AppCompatDelegate.setDefaultNightMode(preferences.getString(getString(R.string.theme_key), AppCompatDelegate.MODE_NIGHT_YES.toString())!!.toInt())
 
         val application = this
         GlobalScope.launch {
@@ -26,7 +26,7 @@ class App: Application() {
                     FFmpeg.getInstance().init(application)
                 }
             } catch (e: Exception){
-                Toast.makeText(applicationContext, "initialization failed", Toast.LENGTH_LONG).show()
+                Toast.makeText(applicationContext, R.string.init_failed, Toast.LENGTH_LONG).show()
             }
         }
     }

@@ -1,13 +1,43 @@
 <resources>
-    <string name="app_name">dvd</string>
+    <string name="app_name" translatable="false">dvd</string>
     <string name="val_not_set">Not set</string>
     <string name="start_how_to">Paste a video link in the search bar</string>
-    <string name="youtube_dl_commands">youtube-dl commands</string>
-    <string name="sample_command">--extract-audio --audio-format mp3 -o /sdcard/Download/youtubedl-android/%(title)s.%(ext)s https://www.youtube.com/watch?v=dQw4w9WgXcQ</string>
+    <string name="youtubedl_commands">youtube-dl commands</string>
+    <string name="sample_command" translatable="false">--extract-audio --audio-format mp3 -o /sdcard/Download/youtubedl-android/%(title)s.%(ext)s https://www.youtube.com/watch?v=dQw4w9WgXcQ</string>
     <string name="execute">execute</string>
     <string name="home">Home</string>
     <string name="downloads">Downloads</string>
-    <string name="youtube_dl">youtube-dl</string>
+    <string name="youtubedl" translatable="false">youtube-dl</string>
     <string name="settings">Settings</string>
     <string name="search">Search</string>
+    <string name="theme">Theme</string>
+    <string name="about">About</string>
+    <string name="init_failed">Initialization failed</string>
+    <string name="app_not_found">No app found on device for opening this content</string>
+    <string name="download_location_title">Download location</string>
+    <string name="action_choose_folder">Choose folder</string>
+    <string name="ok">ok</string>
+    <string name="download_already_running">A download is already running</string>
+    <string name="download_queued">Download queued. Check notification for progress</string>
+    <string name="invalid_download_location">Invalid download location</string>
+    <string name="choose_download_location_title">Choose directory</string>
+    <string name="invalid_url">Invalid url</string>
+    <string name="theme_light">Light</string>
+    <string name="theme_dark">Dark</string>
+    <string name="theme_battery_saver">Set by Battery Saver</string>
+    <string name="theme_default">System Default</string>
+    <string name="action_update">Tap to update</string>
+    <string name="update_already_running">Update is already in progress</string>
+    <string name="update_queued">Update queued. Check notification for progress</string>
+    <string name="command_already_running">A command is already running</string>
+    <string name="command_queued">Command queued. Check notification for progress</string>
+    <string name="command_noti_title">youtube-dl command</string>
+    <string name="command_noti_text">Running command</string>
+    <string name="download_noti_channel_name">dvd download</string>
+    <string name="download_start">Starting download</string>
+    <string name="youtubedl_update">Update youtube-dl</string>
+    <string name="youtubedl_update_noti_title">Updating youtube-dl</string>
+    <string name="youtubedl_update_noti_channel_name">youtube-dl update</string>
+    <string name="already_updated">Already up to date</string>
+    <string name="command_noti_channel_name">youtube-dl command</string>
 </resources>

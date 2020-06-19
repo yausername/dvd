@@ -47,7 +47,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         )
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(name)
-            .setContentText("Starting download")
+            .setContentText(applicationContext.getString(R.string.download_start))
             .build()
 
         val foregroundInfo = ForegroundInfo(notificationId, notification)
@@ -123,21 +123,20 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
             var notificationChannel =
                 notificationManager?.getNotificationChannel(channelId)
             if (notificationChannel == null) {
+                val channelName = applicationContext.getString(R.string.download_noti_channel_name)
                 notificationChannel = NotificationChannel(
                     channelId,
                     channelName, NotificationManager.IMPORTANCE_LOW
                 )
                 notificationChannel.description =
-                    channelDescription
+                    channelName
                 notificationManager?.createNotificationChannel(notificationChannel)
             }
         }
     }
 
     companion object {
-        const val channelName = "dvd download"
-        const val channelDescription = "dvd download"
-        const val channelId = "dvd download"
+        const val channelId = "dvd_download"
     }
 }
 

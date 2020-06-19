@@ -31,7 +31,7 @@ class YoutubeDLUpdateWorker(appContext: Context, params: WorkerParameters) :
             channelId
         )
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("Updating youtube-dl")
+            .setContentTitle(applicationContext.getString(R.string.youtubedl_update_noti_title))
             .build()
 
         val foregroundInfo = ForegroundInfo(notificationId, notification)
@@ -40,7 +40,7 @@ class YoutubeDLUpdateWorker(appContext: Context, params: WorkerParameters) :
         val result = YoutubeDL.getInstance().updateYoutubeDL(applicationContext)
         if (result == YoutubeDL.UpdateStatus.ALREADY_UP_TO_DATE) {
             withContext(Dispatchers.Main){
-                Toast.makeText(applicationContext, "already up to date", Toast.LENGTH_SHORT).show()
+                Toast.makeText(applicationContext, R.string.already_updated, Toast.LENGTH_SHORT).show()
             }
         }
         return Result.success()
@@ -51,21 +51,20 @@ class YoutubeDLUpdateWorker(appContext: Context, params: WorkerParameters) :
             var notificationChannel =
                 notificationManager?.getNotificationChannel(channelId)
             if (notificationChannel == null) {
+                val channelName = applicationContext.getString(R.string.youtubedl_update_noti_channel_name)
                 notificationChannel = NotificationChannel(
                     channelId,
                     channelName, NotificationManager.IMPORTANCE_LOW
                 )
                 notificationChannel.description =
-                    channelDescription
+                    channelName
                 notificationManager?.createNotificationChannel(notificationChannel)
             }
         }
     }
 
     companion object {
-        const val channelName = "youtube-dl update"
-        const val channelDescription = "youtube-dl update"
-        const val channelId = "youtube-dl update"
+        const val channelId = "youtube_dl_update"
     }
 }
 

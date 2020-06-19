@@ -14,5 +14,5 @@
     <item
         android:id="@+id/youtube_dl_fragment"
         android:icon="@drawable/ic_code_24dp"
-        android:title="@string/youtube_dl" />
+        android:title="@string/youtubedl" />
 </menu>

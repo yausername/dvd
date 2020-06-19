@@ -55,7 +55,7 @@ class YoutubeDlFragment : Fragment(), View.OnClickListener {
         if (running) {
             Toast.makeText(
                 context,
-                "A command is already running. Please wait for it to finish.",
+                R.string.command_already_running,
                 Toast.LENGTH_LONG
             ).show()
             return
@@ -75,7 +75,7 @@ class YoutubeDlFragment : Fragment(), View.OnClickListener {
         )
         Toast.makeText(
             context,
-            "Command queued. Check notification for progress",
+            R.string.command_queued,
             Toast.LENGTH_LONG
         ).show()
     }

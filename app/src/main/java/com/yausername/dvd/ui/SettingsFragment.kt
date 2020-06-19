@@ -1,5 +1,6 @@
 package com.yausername.dvd.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -21,22 +22,31 @@ import com.yausername.dvd.R
 import com.yausername.dvd.work.YoutubeDLUpdateWorker
 import com.yausername.youtubedl_android.YoutubeDL
 
+
 class SettingsFragment : PreferenceFragmentCompat() {
 
 
     override fun onCreatePreferences(savedInstanceState: Bundle?, rootKey: String?) {
         setPreferencesFromResource(R.xml.preferences, rootKey)
-        val themePreference: ListPreference? = findPreference("Theme")
+        val themePreference: ListPreference? = findPreference(getString(R.string.theme_key))
         themePreference?.let {
             if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
-                it.entries = arrayOf("Light", "Dark", "Set by Battery Saver")
+                it.entries = arrayOf(
+                    getString(R.string.theme_light), getString(R.string.theme_dark), getString(
+                        R.string.theme_battery_saver
+                    )
+                )
                 it.entryValues = arrayOf(
                     AppCompatDelegate.MODE_NIGHT_NO.toString(),
                     AppCompatDelegate.MODE_NIGHT_YES.toString(),
                     AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY.toString()
                 )
             } else {
-                it.entries = arrayOf("Light", "Dark", "System Default")
+                it.entries = arrayOf(
+                    getString(R.string.theme_light), getString(R.string.theme_dark), getString(
+                        R.string.theme_default
+                    )
+                )
                 it.entryValues = arrayOf(
                     AppCompatDelegate.MODE_NIGHT_NO.toString(),
                     AppCompatDelegate.MODE_NIGHT_YES.toString(),
@@ -50,24 +60,23 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
 
-        val downloadLocationPref: Preference? = findPreference("downloadLocation")
+        val downloadLocationPref: Preference? = findPreference(getString(R.string.download_location_key))
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
         downloadLocationPref?.let {
-            val location = sharedPrefs.getString("downloadLocation", null)
-            location?.apply { updatePathInSummary(it, this) } ?: run {
-                it.summary = "Not set"
-            }
+            val location = sharedPrefs.getString(getString(R.string.download_location_key), null)
+            location?.apply { updatePathInSummary(it, this) } ?: it.setSummary(R.string.val_not_set)
             it.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 val i = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
                 i.addCategory(Intent.CATEGORY_DEFAULT)
-                startActivityForResult(Intent.createChooser(i, "Choose directory"), 6969)
+                startActivityForResult(Intent.createChooser(i, getString(R.string.choose_download_location_title)), 6969)
                 true
             }
         }
 
-        val updateYoutubeDLPref: Preference? = findPreference("updateYoutubeDL")
+        val updateYoutubeDLPref: Preference? = findPreference(getString(R.string.youtubedl_update_key))
         updateYoutubeDLPref?.let {
-            it.summary = YoutubeDL.getInstance().version(requireContext().applicationContext) ?: "Tap to update"
+            it.summary = YoutubeDL.getInstance().version(requireContext().applicationContext) ?: getString(
+                            R.string.action_update)
             it.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 updateYoutubeDL()
                 true
@@ -84,7 +93,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         if (running) {
             Toast.makeText(
                 context,
-                "update is already in progress",
+                R.string.update_already_running,
                 Toast.LENGTH_SHORT
             ).show()
             return
@@ -101,7 +110,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
 
         Toast.makeText(
             context,
-            "Update queued. Check notification for progress",
+            R.string.update_queued,
             Toast.LENGTH_SHORT
         ).show()
     }
@@ -130,8 +139,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 data?.data?.let {
                     val path = it.toString()
                     val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
-                    editor.putString("downloadLocation", path).apply()
-                    findPreference<Preference>("downloadLocation")?.let { preference ->
+                    editor.putString(getString(R.string.download_location_key), path).apply()
+                    findPreference<Preference>(getString(R.string.download_location_key))?.let { preference ->
                         updatePathInSummary(preference,path)
                     }
                 }
@@ -145,5 +154,4 @@ class SettingsFragment : PreferenceFragmentCompat() {
         docId?.apply { preference.summary = docId }
             ?: run { preference.summary = path }
     }
-
 }

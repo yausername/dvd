@@ -27,7 +27,7 @@ class DownloadPathDialogFragment : DialogFragment() {
 
             val view = inflater.inflate(R.layout.dialog_fragment_download_path, null)
             val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
-            val location = sharedPrefs.getString("downloadLocation", null)
+            val location = sharedPrefs.getString(getString(R.string.download_location_key), null)
             if (location != null) {
                 val docId = DocumentsContract.getTreeDocumentId(Uri.parse(location))
                 docId?.apply { view.download_path_tv.text = docId }
@@ -37,13 +37,13 @@ class DownloadPathDialogFragment : DialogFragment() {
             }
             builder.setView(view)
                 .setIcon(R.drawable.ic_folder_24dp)
-                .setTitle("Download location")
-                .setNegativeButton("Pick folder"
-                ) { dialog, id ->
+                .setTitle(R.string.download_location_title)
+                .setNegativeButton(R.string.action_choose_folder)
+                { dialog, id ->
                     listener.onFilePicker(this)
                 }
-                .setPositiveButton("ok"
-                ) { dialog, id ->
+                .setPositiveButton(R.string.ok)
+                { dialog, id ->
                     listener.onOk(this)
                 }
 

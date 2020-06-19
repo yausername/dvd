@@ -2,27 +2,26 @@
 <PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:android="http://schemas.android.com/apk/res/android">
     <ListPreference
-        app:key="Theme"
-        app:title="Theme"
+        app:key="@string/theme_key"
+        app:title="@string/theme"
         app:useSimpleSummaryProvider="true"
         app:iconSpaceReserved="false"/>
 
     <Preference
-        android:title="Download Location"
-        android:key="downloadLocation"
-        app:summary="Default download location"
+        android:key="@string/download_location_key"
+        android:title="@string/download_location_title"
         app:iconSpaceReserved="false">
     </Preference>
 
     <Preference
-        android:title="Update youtube-dl"
-        android:key="updateYoutubeDL"
+        android:key="@string/youtubedl_update_key"
+        android:title="@string/youtubedl_update"
         app:persistent="false"
         app:iconSpaceReserved="false">
     </Preference>
 
     <Preference
-        android:title="About"
+        android:title="@string/about"
         app:summary="https://github.com/yausername/dvd"
         app:persistent="false"
         app:iconSpaceReserved="false">

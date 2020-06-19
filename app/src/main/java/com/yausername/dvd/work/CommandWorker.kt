@@ -34,8 +34,8 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
             channelId
         )
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle("youtube-dl command")
-            .setContentText("Running command")
+            .setContentTitle(applicationContext.getString(R.string.command_noti_title))
+            .setContentText(applicationContext.getString(R.string.command_noti_text))
             .build()
 
         val foregroundInfo = ForegroundInfo(notificationId, notification)
@@ -56,19 +56,19 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
 
         YoutubeDL.getInstance()
             .execute(request) { progress, etaInSeconds ->
-                showProgress(id.hashCode(), "youtube-dl command", progress.toInt(), etaInSeconds)
+                showProgress(id.hashCode(), progress.toInt(), etaInSeconds)
             }
 
         return Result.success()
     }
 
-    private fun showProgress(id: Int, name: String, progress: Int, etaInSeconds: Long) {
+    private fun showProgress(id: Int, progress: Int, etaInSeconds: Long) {
         val notification = NotificationCompat.Builder(applicationContext,
             channelId
         )
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setSmallIcon(R.mipmap.ic_launcher)
-            .setContentTitle(name)
+            .setContentTitle(applicationContext.getString(R.string.command_noti_title))
             .setStyle(NotificationCompat.BigTextStyle().bigText("Task ?/n (ETA $etaInSeconds seconds)"))
             .setProgress(100, progress, false)
             .build()
@@ -80,21 +80,20 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
             var notificationChannel =
                 notificationManager?.getNotificationChannel(channelId)
             if (notificationChannel == null) {
+                val channelName = applicationContext.getString(R.string.command_noti_channel_name)
                 notificationChannel = NotificationChannel(
                     channelId,
                     channelName, NotificationManager.IMPORTANCE_LOW
                 )
                 notificationChannel.description =
-                    channelDescription
+                    channelName
                 notificationManager?.createNotificationChannel(notificationChannel)
             }
         }
     }
 
     companion object {
-        const val channelName = "dvd download"
-        const val channelDescription = "dvd download"
-        const val channelId = "dvd download"
+        const val channelId = "dvd_command"
     }
 }
 

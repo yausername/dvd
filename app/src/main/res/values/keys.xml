@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="theme_key" translatable="false">Theme</string>
+    <string name="download_location_key" translatable="false">download_location_key</string>
+    <string name="youtubedl_update_key" translatable="false">youtubedl_update_key</string>
+</resources>

@@ -65,7 +65,7 @@ class DownloadsAdapter : RecyclerView.Adapter<DownloadsAdapter.ViewHolder>() {
         if (intent.resolveActivity(context.packageManager) != null) {
             startActivity(context, intent, null)
         } else {
-            Toast.makeText(context, "No app found on device for opening this content", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, R.string.app_not_found, Toast.LENGTH_SHORT).show()
         }
     }
 }

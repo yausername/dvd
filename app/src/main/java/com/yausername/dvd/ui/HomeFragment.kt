@@ -61,7 +61,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
                     }
                     DownloadPathDialogFragment().show(
                         childFragmentManager,
-                        "choose download location"
+                        downloadLocationDialogTag
                     )
 
                 })
@@ -135,7 +135,8 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
 
     private fun updateDefaultDownloadLocation(path: String) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
-        prefs.getString("downloadLocation", null) ?: prefs.edit().putString("downloadLocation", path).apply()
+        prefs.getString(getString(R.string.download_location_key), null) ?: prefs.edit()
+            .putString(getString(R.string.download_location_key), path).apply()
     }
 
     private fun startDownload(vidFormatItem: VidInfoItem.VidFormatItem, downloadDir: String) {
@@ -149,7 +150,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
         if (running) {
             Toast.makeText(
                 context,
-                "A download is already running in this directory. Please wait or choose a different directory",
+                R.string.download_already_running,
                 Toast.LENGTH_LONG
             ).show()
             return
@@ -175,7 +176,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
         )
         Toast.makeText(
             context,
-            "Download queued. Check notification for progress",
+            R.string.download_queued,
             Toast.LENGTH_LONG
         ).show()
     }
@@ -184,9 +185,9 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
         val vidFormatsVm =
             ViewModelProvider(activity as MainActivity).get(VidInfoViewModel::class.java)
         val path = PreferenceManager.getDefaultSharedPreferences(context)
-            .getString("downloadLocation", null)
+            .getString(getString(R.string.download_location_key), null)
         if (path == null) {
-            Toast.makeText(context, "invalid download location", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, R.string.invalid_download_location, Toast.LENGTH_SHORT).show()
             return
         }
         startDownload(vidFormatsVm.selectedItem, path)
@@ -195,7 +196,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
     override fun onFilePicker(dialog: DownloadPathDialogFragment) {
         val i = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
         i.addCategory(Intent.CATEGORY_DEFAULT)
-        startActivityForResult(Intent.createChooser(i, "Choose directory"), 42069)
+        startActivityForResult(Intent.createChooser(i, getString(R.string.choose_download_location_title)), 42069)
     }
 
     private fun isStoragePermissionGranted(): Boolean {
@@ -227,9 +228,13 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
         if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             DownloadPathDialogFragment().show(
                 childFragmentManager,
-                "choose download location"
+                downloadLocationDialogTag
             )
         }
+    }
+
+    companion object {
+        const val downloadLocationDialogTag = "download_location_chooser_dialog"
     }
 
 }

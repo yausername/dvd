@@ -30,7 +30,7 @@
         app:layout_constraintTop_toBottomOf="@id/toolbar_image"
         android:layout_marginTop="20dp"
         android:layout_marginHorizontal="10dp"
-        android:text="@string/youtube_dl_commands"
+        android:text="@string/youtubedl_commands"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         />
 

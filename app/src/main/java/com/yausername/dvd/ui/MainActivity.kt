@@ -89,7 +89,7 @@ class MainActivity : AppCompatActivity(), NavActivity {
             navigateHome()
             intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
                 if (!URLUtil.isValidUrl(it)) {
-                    Toast.makeText(applicationContext, "Invalid url", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, R.string.invalid_url, Toast.LENGTH_SHORT).show()
                     return
                 }
                 val vidFormatsVm =
