@@ -9,9 +9,11 @@ class DownloadsRepository(private val downloadsDao: DownloadsDao) {
     suspend fun insert(download: Download) {
         downloadsDao.insert(download)
     }
+
     suspend fun update(download: Download) {
         downloadsDao.update(download)
     }
+
     suspend fun delete(download: Download) {
         downloadsDao.delete(download)
     }

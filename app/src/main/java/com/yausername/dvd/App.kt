@@ -11,21 +11,26 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
-class App: Application() {
+class App : Application() {
 
     override fun onCreate() {
         super.onCreate()
         val preferences = PreferenceManager.getDefaultSharedPreferences(this)
-        AppCompatDelegate.setDefaultNightMode(preferences.getString(getString(R.string.theme_key), AppCompatDelegate.MODE_NIGHT_YES.toString())!!.toInt())
+        AppCompatDelegate.setDefaultNightMode(
+            preferences.getString(
+                getString(R.string.theme_key),
+                AppCompatDelegate.MODE_NIGHT_YES.toString()
+            )!!.toInt()
+        )
 
         val application = this
         GlobalScope.launch {
-            try{
-                withContext(Dispatchers.IO){
+            try {
+                withContext(Dispatchers.IO) {
                     YoutubeDL.getInstance().init(application)
                     FFmpeg.getInstance().init(application)
                 }
-            } catch (e: Exception){
+            } catch (e: Exception) {
                 Toast.makeText(applicationContext, R.string.init_failed, Toast.LENGTH_LONG).show()
             }
         }

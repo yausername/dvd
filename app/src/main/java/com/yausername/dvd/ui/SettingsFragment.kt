@@ -61,7 +61,8 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
 
-        val downloadLocationPref: Preference? = findPreference(getString(R.string.download_location_key))
+        val downloadLocationPref: Preference? =
+            findPreference(getString(R.string.download_location_key))
         val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
         downloadLocationPref?.let {
             val location = sharedPrefs.getString(getString(R.string.download_location_key), null)
@@ -72,10 +73,13 @@ class SettingsFragment : PreferenceFragmentCompat() {
             }
         }
 
-        val updateYoutubeDLPref: Preference? = findPreference(getString(R.string.youtubedl_update_key))
+        val updateYoutubeDLPref: Preference? =
+            findPreference(getString(R.string.youtubedl_update_key))
         updateYoutubeDLPref?.let {
-            it.summary = YoutubeDL.getInstance().version(requireContext().applicationContext) ?: getString(
-                            R.string.action_update)
+            it.summary =
+                YoutubeDL.getInstance().version(requireContext().applicationContext) ?: getString(
+                    R.string.action_update
+                )
             it.onPreferenceClickListener = Preference.OnPreferenceClickListener {
                 updateYoutubeDL()
                 true
@@ -161,7 +165,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
         editor.putString(getString(R.string.download_location_key), path).apply()
         findPreference<Preference>(getString(R.string.download_location_key))?.let { preference ->
-            updatePathInSummary(preference,path)
+            updatePathInSummary(preference, path)
         }
     }
 

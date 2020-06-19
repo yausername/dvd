@@ -30,7 +30,8 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
 
         createNotificationChannel()
         val notificationId = id.hashCode()
-        val notification = NotificationCompat.Builder(applicationContext,
+        val notification = NotificationCompat.Builder(
+            applicationContext,
             channelId
         )
             .setSmallIcon(R.mipmap.ic_launcher)
@@ -62,13 +63,17 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
     }
 
     private fun showProgress(id: Int, progress: Int, etaInSeconds: Long) {
-        val notification = NotificationCompat.Builder(applicationContext,
+        val notification = NotificationCompat.Builder(
+            applicationContext,
             channelId
         )
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(applicationContext.getString(R.string.command_noti_title))
-            .setStyle(NotificationCompat.BigTextStyle().bigText(applicationContext.getString(R.string.eta_in_seconds, etaInSeconds)))
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText(applicationContext.getString(R.string.eta_in_seconds, etaInSeconds))
+            )
             .setProgress(100, progress, false)
             .build()
         notificationManager?.notify(id, notification)

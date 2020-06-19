@@ -1,31 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
-<PreferenceScreen xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
     <ListPreference
+        app:iconSpaceReserved="false"
         app:key="@string/theme_key"
         app:title="@string/theme"
-        app:useSimpleSummaryProvider="true"
-        app:iconSpaceReserved="false"/>
+        app:useSimpleSummaryProvider="true" />
 
     <Preference
         android:key="@string/download_location_key"
         android:title="@string/download_location_title"
-        app:iconSpaceReserved="false">
-    </Preference>
+        app:iconSpaceReserved="false"></Preference>
 
     <Preference
         android:key="@string/youtubedl_update_key"
         android:title="@string/youtubedl_update"
-        app:persistent="false"
-        app:iconSpaceReserved="false">
-    </Preference>
+        app:iconSpaceReserved="false"
+        app:persistent="false"></Preference>
 
     <Preference
         android:title="@string/about"
-        app:summary="https://github.com/yausername/dvd"
+        app:iconSpaceReserved="false"
         app:persistent="false"
-        app:iconSpaceReserved="false">
-        <intent android:action="android.intent.action.VIEW"
+        app:summary="https://github.com/yausername/dvd">
+        <intent
+            android:action="android.intent.action.VIEW"
             android:data="https://github.com/yausername/dvd" />
     </Preference>
 </PreferenceScreen>

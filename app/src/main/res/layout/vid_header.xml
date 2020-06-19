@@ -24,10 +24,10 @@
             android:id="@+id/uploader_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="marquee"
-            android:singleLine="true"
             android:layout_alignParentStart="true"
             android:layout_toStartOf="@id/views_ic"
+            android:ellipsize="marquee"
+            android:singleLine="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <ImageView

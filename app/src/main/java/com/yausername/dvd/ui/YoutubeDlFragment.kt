@@ -32,15 +32,15 @@ class YoutubeDlFragment : Fragment(), View.OnClickListener {
         initViews(view)
     }
 
-    private fun initViews(view: View){
+    private fun initViews(view: View) {
         command_btn.setOnClickListener(this)
     }
 
     override fun onClick(view: View?) {
-        when(view?.id){
+        when (view?.id) {
             R.id.command_btn -> {
                 command = command_et.text.toString()
-                if(isStoragePermissionGranted() && !command.isNullOrBlank()){
+                if (isStoragePermissionGranted() && !command.isNullOrBlank()) {
                     startCommand(command!!)
                 }
             }
@@ -107,7 +107,7 @@ class YoutubeDlFragment : Fragment(), View.OnClickListener {
         grantResults: IntArray
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-        if(requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED){
+        if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
             startCommand(command!!)
         }
     }

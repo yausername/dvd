@@ -24,9 +24,11 @@ class DownloadsViewModel(application: Application) : AndroidViewModel(applicatio
     fun insert(word: Download) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(word)
     }
+
     fun update(word: Download) = viewModelScope.launch(Dispatchers.IO) {
         repository.update(word)
     }
+
     fun delete(word: Download) = viewModelScope.launch(Dispatchers.IO) {
         repository.delete(word)
     }

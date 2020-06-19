@@ -36,13 +36,14 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         val name = inputData.getString(nameKey)!!
         val formatId = inputData.getString(formatIdKey)!!
         val acodec = inputData.getString(acodecKey)
-        val vcodec = inputData.getString (vcodecKey)
+        val vcodec = inputData.getString(vcodecKey)
         val downloadDir = inputData.getString(downloadDirKey)!!
         val size = inputData.getLong(sizeKey, 0L)
 
         createNotificationChannel()
         val notificationId = id.hashCode()
-        val notification = NotificationCompat.Builder(applicationContext,
+        val notification = NotificationCompat.Builder(
+            applicationContext,
             channelId
         )
             .setSmallIcon(R.mipmap.ic_launcher)
@@ -76,8 +77,14 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
             val docId = DocumentsContract.getTreeDocumentId(treeUri)
             val destDir = DocumentsContract.buildDocumentUriUsingTree(treeUri, docId)
             tmpFile.listFiles().forEach {
-                val mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(it.extension) ?: "*/*"
-                destUri = DocumentsContract.createDocument(applicationContext.contentResolver, destDir, mimeType, it.name)
+                val mimeType =
+                    MimeTypeMap.getSingleton().getMimeTypeFromExtension(it.extension) ?: "*/*"
+                destUri = DocumentsContract.createDocument(
+                    applicationContext.contentResolver,
+                    destDir,
+                    mimeType,
+                    it.name
+                )
                 val ins = it.inputStream()
                 val ops = applicationContext.contentResolver.openOutputStream(destUri!!)
                 IOUtils.copy(ins, ops)
@@ -98,7 +105,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         download.downloadedPath = destUri.toString()
         download.downloadedPercent = 100.00
         download.downloadedSize = size
-        download.mediaType = if(vcodec == "none" && acodec != "none") "audio" else "video"
+        download.mediaType = if (vcodec == "none" && acodec != "none") "audio" else "video"
 
         repository.insert(download)
 
@@ -106,13 +113,17 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
     }
 
     private fun showProgress(id: Int, name: String, progress: Int, etaInSeconds: Long) {
-        val notification = NotificationCompat.Builder(applicationContext,
+        val notification = NotificationCompat.Builder(
+            applicationContext,
             channelId
         )
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(name)
-            .setStyle(NotificationCompat.BigTextStyle().bigText(applicationContext.getString(R.string.eta_in_seconds, etaInSeconds)))
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText(applicationContext.getString(R.string.eta_in_seconds, etaInSeconds))
+            )
             .setProgress(100, progress, false)
             .build()
         notificationManager?.notify(id, notification)
@@ -138,7 +149,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
     companion object {
         private const val channelId = "dvd_download"
         const val urlKey = "url"
-        const val nameKey ="name"
+        const val nameKey = "name"
         const val formatIdKey = "formatId"
         const val acodecKey = "acodec"
         const val vcodecKey = "vcodec"

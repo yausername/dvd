@@ -33,11 +33,13 @@ class MainActivity : AppCompatActivity(), NavActivity {
 
         val navController = findNavController(R.id.nav_host_fragment)
 
-        appBarConfiguration = AppBarConfiguration(setOf(
-            R.id.home_fragment,
-            R.id.downloads_fragment,
-            R.id.youtube_dl_fragment
-        ), drawer_layout)
+        appBarConfiguration = AppBarConfiguration(
+            setOf(
+                R.id.home_fragment,
+                R.id.downloads_fragment,
+                R.id.youtube_dl_fragment
+            ), drawer_layout
+        )
         toolbar.setupWithNavController(navController, appBarConfiguration)
         supportActionBar?.title = navController.currentDestination?.label
         bottom_view?.setupWithNavController(navController)
@@ -58,7 +60,8 @@ class MainActivity : AppCompatActivity(), NavActivity {
     }
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        val navController = Navigation.findNavController(this,
+        val navController = Navigation.findNavController(
+            this,
             R.id.nav_host_fragment
         )
         val navigated = NavigationUI.onNavDestinationSelected(item!!, navController)
@@ -89,7 +92,8 @@ class MainActivity : AppCompatActivity(), NavActivity {
             navigateHome()
             intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
                 if (!URLUtil.isValidUrl(it)) {
-                    Toast.makeText(applicationContext, R.string.invalid_url, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, R.string.invalid_url, Toast.LENGTH_SHORT)
+                        .show()
                     return
                 }
                 val vidFormatsVm =

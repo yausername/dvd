@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.MainActivity"
     app:layoutDescription="@xml/collapsing_toolbar"
+    tools:context=".ui.MainActivity"
     tools:showPaths="true">
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginHorizontal="10dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -23,36 +23,35 @@
         android:id="@+id/start_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_image"
-        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
         android:text="@string/start_how_to"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        />
+        app:layout_constraintTop_toBottomOf="@id/toolbar_image" />
 
     <ProgressBar
         android:id="@+id/loading_pb"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="gone"
         android:elevation="10dp"
-        app:layout_constraintStart_toStartOf="parent"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/toolbar_image"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:background="@color/colorPrimary"
         android:contentDescription="@null"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         android:fitsSystemWindows="true"
         android:scaleType="center"
         android:src="@drawable/toolbar"
-        android:background="@color/colorPrimary" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.motion.widget.MotionLayout>

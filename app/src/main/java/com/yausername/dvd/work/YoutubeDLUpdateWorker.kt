@@ -27,7 +27,8 @@ class YoutubeDLUpdateWorker(appContext: Context, params: WorkerParameters) :
 
         createNotificationChannel()
         val notificationId = id.hashCode()
-        val notification = NotificationCompat.Builder(applicationContext,
+        val notification = NotificationCompat.Builder(
+            applicationContext,
             channelId
         )
             .setSmallIcon(R.mipmap.ic_launcher)
@@ -39,8 +40,9 @@ class YoutubeDLUpdateWorker(appContext: Context, params: WorkerParameters) :
 
         val result = YoutubeDL.getInstance().updateYoutubeDL(applicationContext)
         if (result == YoutubeDL.UpdateStatus.ALREADY_UP_TO_DATE) {
-            withContext(Dispatchers.Main){
-                Toast.makeText(applicationContext, R.string.already_updated, Toast.LENGTH_SHORT).show()
+            withContext(Dispatchers.Main) {
+                Toast.makeText(applicationContext, R.string.already_updated, Toast.LENGTH_SHORT)
+                    .show()
             }
         }
         return Result.success()
@@ -51,7 +53,8 @@ class YoutubeDLUpdateWorker(appContext: Context, params: WorkerParameters) :
             var notificationChannel =
                 notificationManager?.getNotificationChannel(channelId)
             if (notificationChannel == null) {
-                val channelName = applicationContext.getString(R.string.youtubedl_update_noti_channel_name)
+                val channelName =
+                    applicationContext.getString(R.string.youtubedl_update_noti_channel_name)
                 notificationChannel = NotificationChannel(
                     channelId,
                     channelName, NotificationManager.IMPORTANCE_LOW

@@ -8,8 +8,8 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.RecyclerView
-import com.yausername.dvd.adapters.DownloadsAdapter
 import com.yausername.dvd.R
+import com.yausername.dvd.adapters.DownloadsAdapter
 import com.yausername.dvd.vm.DownloadsViewModel
 
 
@@ -30,7 +30,7 @@ class DownloadsFragment : Fragment() {
             }
             downloadsViewModel = ViewModelProvider(this).get(DownloadsViewModel::class.java)
             downloadsViewModel.allDownloads.observe(viewLifecycleOwner, Observer { downloads ->
-                downloads?.let { (view.adapter as DownloadsAdapter).addItems(downloads)}
+                downloads?.let { (view.adapter as DownloadsAdapter).addItems(downloads) }
             })
         }
 

@@ -27,12 +27,11 @@
         android:id="@+id/start_tv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/toolbar_image"
-        android:layout_marginTop="20dp"
         android:layout_marginHorizontal="10dp"
+        android:layout_marginTop="20dp"
         android:text="@string/youtubedl_commands"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
-        />
+        app:layout_constraintTop_toBottomOf="@id/toolbar_image" />
 
     <RelativeLayout
         android:id="@+id/youtube_dl_rl"
@@ -44,11 +43,11 @@
             android:id="@+id/command_et"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="top"
             android:layout_marginTop="20dp"
+            android:gravity="top"
             android:hint="@string/sample_command"
-            android:inputType="textMultiLine"
-            android:importantForAutofill="no" />
+            android:importantForAutofill="no"
+            android:inputType="textMultiLine" />
 
         <Button
             android:id="@+id/command_btn"
