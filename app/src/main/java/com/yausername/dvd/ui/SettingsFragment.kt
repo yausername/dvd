@@ -1,5 +1,6 @@
 package com.yausername.dvd.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -66,9 +67,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             val location = sharedPrefs.getString(getString(R.string.download_location_key), null)
             location?.apply { updatePathInSummary(it, this) } ?: it.setSummary(R.string.val_not_set)
             it.onPreferenceClickListener = Preference.OnPreferenceClickListener {
-                val i = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-                i.addCategory(Intent.CATEGORY_DEFAULT)
-                startActivityForResult(Intent.createChooser(i, getString(R.string.choose_download_location_title)), 6969)
+                openDirectoryChooser()
                 true
             }
         }
@@ -82,6 +81,15 @@ class SettingsFragment : PreferenceFragmentCompat() {
                 true
             }
         }
+    }
+
+    private fun openDirectoryChooser() {
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
+            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION or
+                    Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+        }
+        startActivityForResult(intent, OPEN_DIRECTORY_REQUEST_CODE)
     }
 
     private fun updateYoutubeDL() {
@@ -134,17 +142,26 @@ class SettingsFragment : PreferenceFragmentCompat() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            6969 -> {
-                data?.data?.let {
-                    val path = it.toString()
-                    val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
-                    editor.putString(getString(R.string.download_location_key), path).apply()
-                    findPreference<Preference>(getString(R.string.download_location_key))?.let { preference ->
-                        updatePathInSummary(preference,path)
+            OPEN_DIRECTORY_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    data?.data?.let {
+                        activity?.contentResolver?.takePersistableUriPermission(
+                            it,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                        )
+                        updateDefaultDownloadLocation(it.toString())
                     }
                 }
-
             }
+        }
+    }
+
+    private fun updateDefaultDownloadLocation(path: String) {
+        val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
+        editor.putString(getString(R.string.download_location_key), path).apply()
+        findPreference<Preference>(getString(R.string.download_location_key))?.let { preference ->
+            updatePathInSummary(preference,path)
         }
     }
 
@@ -152,5 +169,9 @@ class SettingsFragment : PreferenceFragmentCompat() {
         val docId = DocumentsContract.getTreeDocumentId(Uri.parse(path))
         docId?.apply { preference.summary = docId }
             ?: run { preference.summary = path }
+    }
+
+    companion object {
+        private const val OPEN_DIRECTORY_REQUEST_CODE = 42070
     }
 }

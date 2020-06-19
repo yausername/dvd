@@ -1,6 +1,7 @@
 package com.yausername.dvd.ui
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Build
@@ -128,19 +129,26 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         when (requestCode) {
-            42069 -> {
-                data?.data?.toString()?.let {
-                    updateDefaultDownloadLocation(it)
-                    val vidFormatsVm =
-                        ViewModelProvider(activity as MainActivity).get(VidInfoViewModel::class.java)
-                    startDownload(vidFormatsVm.selectedItem, it)
+            OPEN_DIRECTORY_REQUEST_CODE -> {
+                if (resultCode == Activity.RESULT_OK) {
+                    data?.data?.let {
+                        activity?.contentResolver?.takePersistableUriPermission(
+                            it,
+                            Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION
+                        )
+                        setDefaultDownloadLocation(it.toString())
+                        val vidFormatsVm =
+                            ViewModelProvider(activity as MainActivity).get(VidInfoViewModel::class.java)
+                        startDownload(vidFormatsVm.selectedItem, it.toString())
+                    }
                 }
-
             }
         }
     }
 
-    private fun updateDefaultDownloadLocation(path: String) {
+    // sets default download location if unset
+    private fun setDefaultDownloadLocation(path: String) {
         val prefs = PreferenceManager.getDefaultSharedPreferences(context)
         prefs.getString(getString(R.string.download_location_key), null) ?: prefs.edit()
             .putString(getString(R.string.download_location_key), path).apply()
@@ -201,9 +209,12 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
     }
 
     override fun onFilePicker(dialog: DownloadPathDialogFragment) {
-        val i = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE)
-        i.addCategory(Intent.CATEGORY_DEFAULT)
-        startActivityForResult(Intent.createChooser(i, getString(R.string.choose_download_location_title)), 42069)
+        val intent = Intent(Intent.ACTION_OPEN_DOCUMENT_TREE).apply {
+            flags = Intent.FLAG_GRANT_READ_URI_PERMISSION or
+                    Intent.FLAG_GRANT_WRITE_URI_PERMISSION or
+                    Intent.FLAG_GRANT_PERSISTABLE_URI_PERMISSION
+        }
+        startActivityForResult(intent, OPEN_DIRECTORY_REQUEST_CODE)
     }
 
     private fun isStoragePermissionGranted(): Boolean {
@@ -242,6 +253,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
 
     companion object {
         const val downloadLocationDialogTag = "download_location_chooser_dialog"
+        private const val OPEN_DIRECTORY_REQUEST_CODE = 42069
     }
 
 }
