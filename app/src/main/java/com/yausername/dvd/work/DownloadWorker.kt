@@ -32,13 +32,13 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
 
     override suspend fun doWork(): Result {
 
-        val url = inputData.getString("url")!!
-        val name = inputData.getString("name")!!
-        val formatId = inputData.getString("formatId")!!
-        val acodec = inputData.getString("acodec")
-        val vcodec = inputData.getString ("vcodec")
-        val downloadDir = inputData.getString("downloadDir")!!
-        val size = inputData.getLong("size", 0L)
+        val url = inputData.getString(urlKey)!!
+        val name = inputData.getString(nameKey)!!
+        val formatId = inputData.getString(formatIdKey)!!
+        val acodec = inputData.getString(acodecKey)
+        val vcodec = inputData.getString (vcodecKey)
+        val downloadDir = inputData.getString(downloadDirKey)!!
+        val size = inputData.getLong(sizeKey, 0L)
 
         createNotificationChannel()
         val notificationId = id.hashCode()
@@ -112,7 +112,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(name)
-            .setStyle(NotificationCompat.BigTextStyle().bigText("Task ?/n (ETA $etaInSeconds seconds)"))
+            .setStyle(NotificationCompat.BigTextStyle().bigText(applicationContext.getString(R.string.eta_in_seconds, etaInSeconds)))
             .setProgress(100, progress, false)
             .build()
         notificationManager?.notify(id, notification)
@@ -136,7 +136,14 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
     }
 
     companion object {
-        const val channelId = "dvd_download"
+        private const val channelId = "dvd_download"
+        const val urlKey = "url"
+        const val nameKey ="name"
+        const val formatIdKey = "formatId"
+        const val acodecKey = "acodec"
+        const val vcodecKey = "vcodec"
+        const val downloadDirKey = "downloadDir"
+        const val sizeKey = "size"
     }
 }
 

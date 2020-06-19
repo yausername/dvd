@@ -27,6 +27,13 @@ import com.yausername.dvd.model.VidInfoItem
 import com.yausername.dvd.vm.LoadState
 import com.yausername.dvd.vm.VidInfoViewModel
 import com.yausername.dvd.work.DownloadWorker
+import com.yausername.dvd.work.DownloadWorker.Companion.acodecKey
+import com.yausername.dvd.work.DownloadWorker.Companion.downloadDirKey
+import com.yausername.dvd.work.DownloadWorker.Companion.formatIdKey
+import com.yausername.dvd.work.DownloadWorker.Companion.nameKey
+import com.yausername.dvd.work.DownloadWorker.Companion.sizeKey
+import com.yausername.dvd.work.DownloadWorker.Companion.urlKey
+import com.yausername.dvd.work.DownloadWorker.Companion.vcodecKey
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
 
@@ -142,7 +149,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
     private fun startDownload(vidFormatItem: VidInfoItem.VidFormatItem, downloadDir: String) {
         val vidInfo = vidFormatItem.vidInfo
         val vidFormat = vidFormatItem.vidFormat
-        val workTag = downloadDir + "/" + vidInfo.id
+        val workTag = vidInfo.id
         val workManager = WorkManager.getInstance(activity?.applicationContext!!)
         val state =
             workManager.getWorkInfosByTag(workTag).get()?.getOrNull(0)?.state
@@ -156,13 +163,13 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
             return
         }
         val workData = workDataOf(
-            "url" to vidInfo.webpageUrl,
-            "name" to vidInfo.title,
-            "formatId" to vidFormat.formatId,
-            "acodec" to vidFormat.acodec,
-            "vcodec" to vidFormat.vcodec,
-            "downloadDir" to downloadDir,
-            "size" to vidFormat.filesize
+            urlKey to vidInfo.webpageUrl,
+            nameKey to vidInfo.title,
+            formatIdKey to vidFormat.formatId,
+            acodecKey to vidFormat.acodec,
+            vcodecKey to vidFormat.vcodec,
+            downloadDirKey to downloadDir,
+            sizeKey to vidFormat.filesize
         )
         val workRequest = OneTimeWorkRequestBuilder<DownloadWorker>()
             .addTag(workTag)

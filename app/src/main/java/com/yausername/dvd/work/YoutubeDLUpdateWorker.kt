@@ -64,7 +64,8 @@ class YoutubeDLUpdateWorker(appContext: Context, params: WorkerParameters) :
     }
 
     companion object {
-        const val channelId = "youtube_dl_update"
+        private const val channelId = "youtubedl_update"
+        const val workTag = "youtubedl_update_work"
     }
 }
 

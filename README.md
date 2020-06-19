@@ -4,7 +4,7 @@
 
 Download videos from [1000+ sites](https://ytdl-org.github.io/youtube-dl/supportedsites.html) supported by youtube-dl
 
-Download latest apks from the [releases page](https://github.com/yausername/dvd/releases)
+Download latest APKs from the [releases page](https://github.com/yausername/dvd/releases)
 
 **Warning: Putting this app on the google play store is a violation of their terms.**
 

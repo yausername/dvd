@@ -1,6 +1,7 @@
 package com.yausername.dvd.adapters
 
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -37,9 +38,11 @@ class DownloadsAdapter : RecyclerView.Adapter<DownloadsAdapter.ViewHolder>() {
         with(holder.itemView) {
             title_tv.text = item.name
             download_pb.progress = item.downloadedPercent.toInt()
-            download_percent_tv.text = "${item.downloadedPercent} %"
+            @SuppressLint("SetTextI18n")
+            download_percent_tv.text = "${item.downloadedPercent}%"
             val totalSize = Formatter.formatShortFileSize(context, item.totalSize)
             val downloadedSize = Formatter.formatShortFileSize(context, item.downloadedSize)
+            @SuppressLint("SetTextI18n")
             download_size_tv.text = "${downloadedSize}/${totalSize}"
             if (item.mediaType == "audio") {
                 format_ic.setImageResource(R.drawable.ic_audio_24dp)

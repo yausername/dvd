@@ -63,8 +63,8 @@ class VidInfoAdapter(private val clickListener: VidInfoListener) :
                     format_tv.text = vidFormat.format
                     ext_tv.text = vidFormat.ext
                     size_tv.text = Formatter.formatShortFileSize(context, vidFormat.filesize)
-                    fps_tv.text = "${vidFormat.fps} fps "
-                    abr_tv.text = "${vidFormat.abr} abr "
+                    fps_tv.text = context.getString(R.string.fps_value, vidFormat.fps)
+                    abr_tv.text = context.getString(R.string.abr_value, vidFormat.abr)
                     if (vidFormat.acodec != "none" && vidFormat.vcodec == "none") {
                         format_ic.setImageResource(R.drawable.ic_audio_24dp)
                     } else {
@@ -93,7 +93,7 @@ class VidInfoAdapter(private val clickListener: VidInfoListener) :
                     vidInfo.duration.toLong().apply {
                         val minutes = TimeUnit.SECONDS.toMinutes(this)
                         val seconds = this - TimeUnit.MINUTES.toSeconds(minutes)
-                        duration_tv.text = "$minutes min, $seconds sec"
+                        duration_tv.text = context.getString(R.string.duration, minutes, seconds)
                     }
                 }
             }

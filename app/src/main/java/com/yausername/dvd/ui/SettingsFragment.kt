@@ -1,6 +1,5 @@
 package com.yausername.dvd.ui
 
-import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -20,6 +19,7 @@ import androidx.work.WorkInfo
 import androidx.work.WorkManager
 import com.yausername.dvd.R
 import com.yausername.dvd.work.YoutubeDLUpdateWorker
+import com.yausername.dvd.work.YoutubeDLUpdateWorker.Companion.workTag
 import com.yausername.youtubedl_android.YoutubeDL
 
 
@@ -85,7 +85,6 @@ class SettingsFragment : PreferenceFragmentCompat() {
     }
 
     private fun updateYoutubeDL() {
-        val workTag = "youtube-dl-update"
         val workManager = WorkManager.getInstance(requireContext().applicationContext)
         val state =
             workManager.getWorkInfosByTag(workTag).get()?.getOrNull(0)?.state

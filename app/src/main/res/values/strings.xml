@@ -16,7 +16,6 @@
     <string name="app_not_found">No app found on device for opening this content</string>
     <string name="download_location_title">Download location</string>
     <string name="action_choose_folder">Choose folder</string>
-    <string name="ok">ok</string>
     <string name="download_already_running">A download is already running</string>
     <string name="download_queued">Download queued. Check notification for progress</string>
     <string name="invalid_download_location">Invalid download location</string>
@@ -40,4 +39,8 @@
     <string name="youtubedl_update_noti_channel_name">youtube-dl update</string>
     <string name="already_updated">Already up to date</string>
     <string name="command_noti_channel_name">youtube-dl command</string>
+    <string name="eta_in_seconds">Task ?/n (ETA %d seconds)</string>
+    <string name="fps_value">%d fps</string>
+    <string name="abr_value">%d abr</string>
+    <string name="duration">%d:%d</string>
 </resources>

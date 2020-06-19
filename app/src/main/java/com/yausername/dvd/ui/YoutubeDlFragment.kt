@@ -13,6 +13,7 @@ import androidx.fragment.app.Fragment
 import androidx.work.*
 import com.yausername.dvd.R
 import com.yausername.dvd.work.CommandWorker
+import com.yausername.dvd.work.CommandWorker.Companion.commandKey
 import kotlinx.android.synthetic.main.fragment_youtube_dl.*
 
 class YoutubeDlFragment : Fragment(), View.OnClickListener {
@@ -47,7 +48,7 @@ class YoutubeDlFragment : Fragment(), View.OnClickListener {
     }
 
     private fun startCommand(command: String) {
-        val workTag = "youtube-dl-custom-command"
+        val workTag = CommandWorker.commandWorkTag
         val workManager = WorkManager.getInstance(activity?.applicationContext!!)
         val state =
             workManager.getWorkInfosByTag(workTag).get()?.getOrNull(0)?.state
@@ -61,7 +62,7 @@ class YoutubeDlFragment : Fragment(), View.OnClickListener {
             return
         }
         val workData = workDataOf(
-            "command" to command
+            commandKey to command
         )
         val workRequest = OneTimeWorkRequestBuilder<CommandWorker>()
             .addTag(workTag)

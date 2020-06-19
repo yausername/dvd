@@ -26,7 +26,7 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
 
     override suspend fun doWork(): Result {
 
-        val command = inputData.getString("command")!!
+        val command = inputData.getString(commandKey)!!
 
         createNotificationChannel()
         val notificationId = id.hashCode()
@@ -44,7 +44,6 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
         // this is not the recommended way to add options/flags/url and might break in future
         // use the constructor for url, addOption(key) for flags, addOption(key, value) for options
         val request = YoutubeDLRequest(Collections.emptyList())
-        val commandRegex = "\"([^\"]*)\"|(\\S+)"
         val m: Matcher = Pattern.compile(commandRegex).matcher(command)
         while (m.find()) {
             if (m.group(1) != null) {
@@ -69,7 +68,7 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
             .setPriority(NotificationCompat.PRIORITY_LOW)
             .setSmallIcon(R.mipmap.ic_launcher)
             .setContentTitle(applicationContext.getString(R.string.command_noti_title))
-            .setStyle(NotificationCompat.BigTextStyle().bigText("Task ?/n (ETA $etaInSeconds seconds)"))
+            .setStyle(NotificationCompat.BigTextStyle().bigText(applicationContext.getString(R.string.eta_in_seconds, etaInSeconds)))
             .setProgress(100, progress, false)
             .build()
         notificationManager?.notify(id, notification)
@@ -93,7 +92,10 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
     }
 
     companion object {
-        const val channelId = "dvd_command"
+        private const val channelId = "dvd_command"
+        const val commandKey = "command"
+        const val commandWorkTag = "command_work"
+        private const val commandRegex = "\"([^\"]*)\"|(\\S+)"
     }
 }
 

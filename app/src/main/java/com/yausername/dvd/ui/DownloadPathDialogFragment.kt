@@ -42,7 +42,7 @@ class DownloadPathDialogFragment : DialogFragment() {
                 { dialog, id ->
                     listener.onFilePicker(this)
                 }
-                .setPositiveButton(R.string.ok)
+                .setPositiveButton(android.R.string.ok)
                 { dialog, id ->
                     listener.onOk(this)
                 }
