@@ -7,23 +7,23 @@
 
     <fragment
         android:id="@+id/home_fragment"
-        android:name="com.yausername.dvd.ui.HomeFragment"
+        android:name="org.yausername.dvd.ui.HomeFragment"
         android:label="@string/app_name"
         tools:layout="@layout/fragment_home" />
 
     <fragment
         android:id="@+id/downloads_fragment"
-        android:name="com.yausername.dvd.ui.DownloadsFragment"
+        android:name="org.yausername.dvd.ui.DownloadsFragment"
         android:label="Downloads"
         tools:layout="@layout/fragment_downloads_list" />
 
     <fragment
         android:id="@+id/settings_fragment"
-        android:name="com.yausername.dvd.ui.SettingsFragment"
+        android:name="org.yausername.dvd.ui.SettingsFragment"
         android:label="Settings" />
 
     <fragment
         android:id="@+id/youtube_dl_fragment"
-        android:name="com.yausername.dvd.ui.YoutubeDlFragment"
+        android:name="org.yausername.dvd.ui.YoutubeDlFragment"
         android:label="youtube-dl" />
 </navigation>

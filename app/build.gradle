@@ -13,7 +13,7 @@ android {
     buildToolsVersion "29.0.2"
 
     defaultConfig {
-        applicationId "com.yausername.dvd"
+        applicationId "org.yausername.dvd"
         minSdkVersion 21
         targetSdkVersion 29
         versionCode versionMajor * 1000000 + versionMinor * 10000 + versionPatch * 100 + versionBuild
