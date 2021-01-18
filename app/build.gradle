@@ -28,7 +28,8 @@ android {
         }
 
         ndk {
-            abiFilters 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
+            abiFilters = []
+            abiFilters.addAll(ABI_FILTERS.split(';').collect{it as String})
         }
     }
 
@@ -50,7 +51,7 @@ android {
 
     splits {
         abi {
-            enable true
+            enable !project.hasProperty('noSplits')
             reset()
             include 'x86', 'x86_64', 'armeabi-v7a', 'arm64-v8a'
             universalApk true
