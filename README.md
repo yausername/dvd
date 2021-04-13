@@ -8,6 +8,10 @@ Download latest APKs from the [releases page](https://github.com/yausername/dvd/
 
 **Warning: Putting this app on the google play store is a violation of their terms.**
 
+[<img src="https://fdroid.gitlab.io/artwork/badge/get-it-on.png"
+     alt="Get it on F-Droid"
+     height="80">](https://f-droid.org/packages/org.yausername.dvd/)
+
 </br>
 
 <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/1.jpg" alt="screenshot1" width="300"/> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/2.jpg" alt="screenshot2" width="300"/>
