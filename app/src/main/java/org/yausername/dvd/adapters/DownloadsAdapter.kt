@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.core.content.ContextCompat.startActivity
+import androidx.documentfile.provider.DocumentFile
 import androidx.recyclerview.widget.RecyclerView
 import org.yausername.dvd.R
 import org.yausername.dvd.database.Download
@@ -62,6 +63,11 @@ class DownloadsAdapter : RecyclerView.Adapter<DownloadsAdapter.ViewHolder>() {
     private fun viewContent(path: String, context: Context) {
         val intent = Intent(Intent.ACTION_VIEW)
         val uri = Uri.parse(path)
+        val downloadedFile = DocumentFile.fromSingleUri(context, uri)!!
+        if (! downloadedFile.exists()) {
+            Toast.makeText(context, R.string.file_not_found, Toast.LENGTH_SHORT).show()
+            return
+        }
         val mimeType = context.contentResolver.getType(uri) ?: "*/*"
         intent.setDataAndType(uri, mimeType)
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)

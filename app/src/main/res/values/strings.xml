@@ -14,6 +14,7 @@
     <string name="about">About</string>
     <string name="init_failed">Initialization failed</string>
     <string name="app_not_found">No app found on device for opening this content</string>
+    <string name="file_not_found">The selected file does not exist anymore</string>
     <string name="download_location_title">Download location</string>
     <string name="action_choose_folder">Choose folder</string>
     <string name="download_already_running">A download is already running</string>
