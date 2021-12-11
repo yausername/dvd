@@ -14,16 +14,16 @@
     <fragment
         android:id="@+id/downloads_fragment"
         android:name="org.yausername.dvd.ui.DownloadsFragment"
-        android:label="Downloads"
+        android:label="@string/nav_graph_label_downloads"
         tools:layout="@layout/fragment_downloads_list" />
 
     <fragment
         android:id="@+id/settings_fragment"
         android:name="org.yausername.dvd.ui.SettingsFragment"
-        android:label="Settings" />
+        android:label="@string/nav_graph_label_settings" />
 
     <fragment
         android:id="@+id/youtube_dl_fragment"
         android:name="org.yausername.dvd.ui.YoutubeDlFragment"
-        android:label="youtube-dl" />
+        android:label="@string/nav_graph_label_ytdlp" />
 </navigation>
