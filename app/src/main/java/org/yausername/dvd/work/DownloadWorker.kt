@@ -18,6 +18,7 @@ import org.yausername.dvd.database.DownloadsRepository
 import com.yausername.youtubedl_android.YoutubeDL
 import com.yausername.youtubedl_android.YoutubeDLRequest
 import org.apache.commons.io.IOUtils
+import org.yausername.dvd.utils.FileNameUtils
 import java.io.File
 import java.util.*
 
@@ -33,7 +34,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
     override suspend fun doWork(): Result {
 
         val url = inputData.getString(urlKey)!!
-        val name = inputData.getString(nameKey)!!
+        val name = FileNameUtils.createFilename(inputData.getString(nameKey)!!)
         val formatId = inputData.getString(formatIdKey)!!
         val acodec = inputData.getString(acodecKey)
         val vcodec = inputData.getString(vcodecKey)
@@ -59,7 +60,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         tmpFile.delete()
         tmpFile.mkdir()
         tmpFile.deleteOnExit()
-        request.addOption("-o", "${tmpFile.absolutePath}/%(title)s.%(ext)s")
+        request.addOption("-o", "${tmpFile.absolutePath}/${name}.%(ext)s")
         val videoOnly = vcodec != "none" && acodec == "none"
         if (videoOnly) {
             request.addOption("-f", "${formatId}+bestaudio")
