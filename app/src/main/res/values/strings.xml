@@ -31,7 +31,7 @@
     <string name="update_queued">Update queued. Check notification for progress</string>
     <string name="command_already_running">A command is already running</string>
     <string name="command_queued">Command queued. Check notification for progress</string>
-    <string name="command_noti_title">youtube-dl command</string>
+    <string name="command_noti_title">yt-dlp command</string>
     <string name="command_noti_text">Running command</string>
     <string name="download_noti_channel_name">dvd download</string>
     <string name="download_start">Starting download</string>
