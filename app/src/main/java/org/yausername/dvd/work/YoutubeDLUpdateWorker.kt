@@ -45,6 +45,12 @@ class YoutubeDLUpdateWorker(appContext: Context, params: WorkerParameters) :
                     .show()
             }
         }
+        if (result == YoutubeDL.UpdateStatus.DONE) {
+            withContext(Dispatchers.Main) {
+                Toast.makeText(applicationContext, R.string.updated_successful, Toast.LENGTH_SHORT)
+                    .show()
+            }
+        }
         return Result.success()
     }
 
