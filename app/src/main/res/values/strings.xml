@@ -39,6 +39,7 @@
     <string name="youtubedl_update_noti_title">Updating yt-dlp</string>
     <string name="youtubedl_update_noti_channel_name">yt-dlp update</string>
     <string name="already_updated">Already up to date</string>
+    <string name="updated_successful">Update successful</string>
     <string name="command_noti_channel_name">yt-dlp command</string>
     <string name="eta_in_seconds">Task ?/n (ETA %d seconds)</string>
     <string name="fps_value">%d fps</string>
