@@ -6,7 +6,6 @@
     android:layout_marginTop="10dp">
 
     <RelativeLayout
-        android:id="@+id/item_bkg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="2dp"
@@ -31,7 +30,6 @@
             android:layout_toEndOf="@id/format_ic"
             android:ellipsize="end"
             android:padding="6dp"
-            android:text="XXX.xx"
             android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
         <TextView
@@ -42,7 +40,6 @@
             android:layout_toEndOf="@id/format_ic"
             android:padding="6dp"
             android:singleLine="true"
-            android:text="100.00MB"
             android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
         <TextView
