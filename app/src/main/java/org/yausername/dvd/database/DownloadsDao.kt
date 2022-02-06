@@ -14,6 +14,9 @@ interface DownloadsDao {
     @Delete
     suspend fun delete(item: Download)
 
+    @Query("DELETE from downloads_table WHERE downloaded_path = :filePath")
+    fun deleteByUri(filePath: String)
+
     @Query("SELECT * from downloads_table ORDER BY timestamp DESC")
     fun getAllDownloads(): LiveData<List<Download>>
 

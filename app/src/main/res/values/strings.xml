@@ -48,4 +48,6 @@
     <string name="nav_graph_label_downloads">Downloads</string>
     <string name="nav_graph_label_settings">Settings</string>
     <string name="nav_graph_label_ytdlp">yt-dlp</string>
+    <string name="share">share</string>
+    <string name="delete">delete</string>
 </resources>

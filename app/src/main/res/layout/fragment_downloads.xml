@@ -1,63 +1,76 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="10dp">
 
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <RelativeLayout
+        android:id="@+id/item_bkg"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp">
+        android:layout_margin="2dp"
+        tools:ignore="UselessParent">
+
+        <ImageView
+            android:id="@+id/format_ic"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/app_name"
+            android:gravity="center"
+            android:padding="15dp"
+            android:scaleType="fitXY"
+            android:src="@drawable/ic_baseline_audiotrack_24" />
 
         <TextView
             android:id="@+id/title_tv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/item_more"
+            android:layout_toEndOf="@id/format_ic"
+            android:ellipsize="end"
+            android:padding="6dp"
+            android:text="XXX.xx"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/download_size_tv"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:ellipsize="marquee"
-            android:maxLines="2"
-            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:layout_below="@+id/title_tv"
+            android:layout_toEndOf="@id/format_ic"
+            android:padding="6dp"
+            android:singleLine="true"
+            android:text="100.00MB"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-        <ProgressBar
-            android:id="@+id/download_pb"
-            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/download_percent_tv"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:layout_constraintTop_toBottomOf="@id/title_tv" />
+            android:layout_below="@+id/title_tv"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="5dp"
+            android:layout_toStartOf="@+id/item_more"
+            android:layout_toEndOf="@id/download_size_tv"
+            android:padding="6dp"
+            android:singleLine="true"
+            android:text="0%"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small" />
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/download_pb">
+        <ImageView
+            android:id="@+id/item_more"
+            style="?attr/buttonBarButtonStyle"
+            android:layout_width="49dp"
+            android:layout_height="49dp"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="4dp"
+            android:contentDescription="@string/app_name"
+            android:scaleType="centerInside"
+            app:srcCompat="@drawable/ic_baseline_more_vert_24" />
 
-            <TextView
-                android:id="@+id/download_percent_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:paddingHorizontal="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
+    </RelativeLayout>
 
-            <TextView
-                android:id="@+id/download_size_tv"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/download_percent_tv"
-                android:paddingHorizontal="5dp"
-                android:textAppearance="@style/TextAppearance.AppCompat.Small" />
-
-            <ImageView
-                android:id="@+id/format_ic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_toEndOf="@id/download_size_tv"
-                android:src="@drawable/ic_audio_24dp" />
-
-        </RelativeLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-</androidx.cardview.widget.CardView>
+</RelativeLayout>
