@@ -1,15 +1,15 @@
 package org.yausername.dvd.adapters
 
+import android.content.Context
+import android.content.Intent
 import android.text.format.Formatter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import org.yausername.dvd.R
-import org.yausername.dvd.model.VidInfoItem
-import org.yausername.dvd.utils.NumberUtils
 import com.yausername.youtubedl_android.mapper.VideoInfo
 import kotlinx.android.synthetic.main.vid_format.view.*
 import kotlinx.android.synthetic.main.vid_header.view.*
@@ -17,6 +17,9 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.yausername.dvd.R
+import org.yausername.dvd.model.VidInfoItem
+import org.yausername.dvd.utils.NumberUtils
 import java.util.concurrent.TimeUnit
 
 private const val ITEM_VIEW_TYPE_HEADER = 0
@@ -66,9 +69,12 @@ class VidInfoAdapter(private val clickListener: VidInfoListener) :
                     fps_tv.text = context.getString(R.string.fps_value, vidFormat.fps)
                     abr_tv.text = context.getString(R.string.abr_value, vidFormat.abr)
                     if (vidFormat.acodec != "none" && vidFormat.vcodec == "none") {
-                        format_ic.setImageResource(R.drawable.ic_audio_24dp)
+                        format_ic.setImageResource(R.drawable.ic_baseline_audiotrack_24)
                     } else {
-                        format_ic.setImageResource(R.drawable.ic_video_24dp)
+                        format_ic.setImageResource(R.drawable.ic_baseline_video_library_24)
+                    }
+                    item_share.setOnClickListener {
+                        shareUrl(vidFormat.url, context)
                     }
                     setOnClickListener { clickListener.onClick(vidItem) }
                 }
@@ -98,6 +104,14 @@ class VidInfoAdapter(private val clickListener: VidInfoListener) :
                 }
             }
         }
+    }
+
+    private fun shareUrl(url: String, context: Context) {
+        val intent = Intent()
+        intent.action = Intent.ACTION_SEND
+        intent.type = "text/plain"
+        intent.putExtra(Intent.EXTRA_TEXT, url)
+        startActivity(context, Intent.createChooser(intent, null), null)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -158,4 +172,3 @@ class VidInfoDiffCallback : DiffUtil.ItemCallback<VidInfoItem>() {
 class VidInfoListener(val clickListener: (VidInfoItem.VidFormatItem) -> Unit) {
     fun onClick(vidInfo: VidInfoItem.VidFormatItem) = clickListener(vidInfo)
 }
-

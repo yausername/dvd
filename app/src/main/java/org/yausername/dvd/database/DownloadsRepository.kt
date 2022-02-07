@@ -17,5 +17,8 @@ class DownloadsRepository(private val downloadsDao: DownloadsDao) {
     suspend fun delete(download: Download) {
         downloadsDao.delete(download)
     }
-}
 
+    fun deleteByUri(filePath: String) {
+        downloadsDao.deleteByUri(filePath)
+    }
+}
