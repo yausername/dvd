@@ -55,14 +55,14 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
         }
 
         YoutubeDL.getInstance()
-            .execute(request) { progress, etaInSeconds ->
-                showProgress(id.hashCode(), progress.toInt(), etaInSeconds)
+            .execute(request) { progress, _, line ->
+                showProgress(id.hashCode(), progress.toInt(), line)
             }
 
         return Result.success()
     }
 
-    private fun showProgress(id: Int, progress: Int, etaInSeconds: Long) {
+    private fun showProgress(id: Int, progress: Int, line: String) {
         val notification = NotificationCompat.Builder(
             applicationContext,
             channelId
@@ -72,7 +72,7 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
             .setContentTitle(applicationContext.getString(R.string.command_noti_title))
             .setStyle(
                 NotificationCompat.BigTextStyle()
-                    .bigText(applicationContext.getString(R.string.eta_in_seconds, etaInSeconds))
+                    .bigText(line)
             )
             .setProgress(100, progress, false)
             .build()
