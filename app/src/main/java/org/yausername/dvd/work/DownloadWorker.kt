@@ -71,8 +71,8 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         var destUri: Uri? = null
         try {
             YoutubeDL.getInstance()
-                .execute(request) { progress, etaInSeconds ->
-                    showProgress(id.hashCode(), name, progress.toInt(), etaInSeconds)
+                .execute(request) { progress, etaInSeconds, line ->
+                    showProgress(id.hashCode(), name, progress.toInt(), line)
                 }
             val treeUri = Uri.parse(downloadDir)
             val docId = DocumentsContract.getTreeDocumentId(treeUri)
@@ -113,7 +113,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         return Result.success()
     }
 
-    private fun showProgress(id: Int, name: String, progress: Int, etaInSeconds: Long) {
+    private fun showProgress(id: Int, name: String, progress: Int, line: String) {
         val notification = NotificationCompat.Builder(
             applicationContext,
             channelId
@@ -123,7 +123,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
             .setContentTitle(name)
             .setStyle(
                 NotificationCompat.BigTextStyle()
-                    .bigText(applicationContext.getString(R.string.eta_in_seconds, etaInSeconds))
+                    .bigText(line)
             )
             .setProgress(100, progress, false)
             .build()
