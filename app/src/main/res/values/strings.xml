@@ -49,5 +49,5 @@
     <string name="nav_graph_label_ytdlp">yt-dlp</string>
     <string name="share">share</string>
     <string name="delete">delete</string>
-    <string name="file_cannot_be_shared">The file cannot be shared.</string>
+    <string name="file_cannot_be_shared">This file cannot be shared.</string>
 </resources>
