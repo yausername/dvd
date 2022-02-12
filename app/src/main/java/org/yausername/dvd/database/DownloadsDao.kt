@@ -14,6 +14,9 @@ interface DownloadsDao {
     @Delete
     suspend fun delete(item: Download)
 
+    @Query("SELECT * from downloads_table WHERE id = :id")
+    fun getById(id: Long): Download
+
     @Query("SELECT * from downloads_table ORDER BY timestamp DESC")
     fun getAllDownloads(): LiveData<List<Download>>
 
