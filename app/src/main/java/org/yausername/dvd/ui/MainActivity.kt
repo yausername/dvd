@@ -20,6 +20,7 @@ import androidx.navigation.ui.setupWithNavController
 import org.yausername.dvd.R
 import org.yausername.dvd.vm.VidInfoViewModel
 import kotlinx.android.synthetic.main.activity_main.*
+import org.yausername.dvd.utils.Utils.cleanUrl
 
 class MainActivity : AppCompatActivity(), NavActivity {
 
@@ -91,14 +92,15 @@ class MainActivity : AppCompatActivity(), NavActivity {
         if (Intent.ACTION_SEND == intent.action) {
             navigateHome()
             intent.getStringExtra(Intent.EXTRA_TEXT)?.let {
-                if (!URLUtil.isValidUrl(it)) {
+                val cleanUrl = cleanUrl(it)
+                if (!URLUtil.isValidUrl(cleanUrl)) {
                     Toast.makeText(applicationContext, R.string.invalid_url, Toast.LENGTH_SHORT)
                         .show()
                     return
                 }
                 val vidFormatsVm =
                     ViewModelProvider(this).get(VidInfoViewModel::class.java)
-                vidFormatsVm.fetchInfo(it)
+                vidFormatsVm.fetchInfo(cleanUrl)
             }
         }
     }
