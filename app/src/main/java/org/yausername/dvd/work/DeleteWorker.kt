@@ -15,13 +15,16 @@ class DeleteWorker(appContext: Context, params: WorkerParameters) :
     CoroutineWorker(appContext, params) {
     override suspend fun doWork(): Result {
 
-        val fileUri = inputData.getString(fileUriKey)!!
-        val fileName = inputData.getString(fileNameKey)!!
+        val fileId = inputData.getLong(fileIdKey, 0)
 
         val downloadsDao = AppDatabase.getDatabase(applicationContext).downloadsDao()
         val repository = DownloadsRepository(downloadsDao)
+        val download = downloadsDao.getById(fileId)
 
-        repository.deleteByUri(fileUri)
+        val fileName = download.name
+        val fileUri = download.downloadedPath
+
+        repository.delete(download)
 
         val file = DocumentFile.fromSingleUri(applicationContext, Uri.parse(fileUri))!!
         if (file.exists()) {
@@ -36,8 +39,7 @@ class DeleteWorker(appContext: Context, params: WorkerParameters) :
     }
 
     companion object {
-        const val fileUriKey = "path"
-        const val fileNameKey = "name"
+        const val fileIdKey = "id"
     }
 
 }

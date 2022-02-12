@@ -62,7 +62,7 @@ class DownloadsAdapter : RecyclerView.Adapter<DownloadsAdapter.ViewHolder>() {
                             shareContent(item.downloadedPath, context)
                         }
                         R.id.delete -> {
-                            startDelete(item.name, item.downloadedPath, context)
+                            startDelete(item.id, context)
                         }
                     }
                     true
@@ -101,26 +101,26 @@ class DownloadsAdapter : RecyclerView.Adapter<DownloadsAdapter.ViewHolder>() {
         if (file.exists()) {
             val intent = Intent(Intent.ACTION_SEND)
             intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION)
-            intent.setType(context.contentResolver.getType(Uri.parse(path)) ?: "*/*")
+            intent.type = context.contentResolver.getType(Uri.parse(path)) ?: "*/*"
             intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(path))
-            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+            intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
             startActivity(context, Intent.createChooser(intent, null), null)
         } else {
             Toast.makeText(context, R.string.file_cannot_be_shared, Toast.LENGTH_SHORT).show()
         }
     }
 
-    private fun startDelete(name: String, path: String, context: Context) {
-        val workTag = name
+    private fun startDelete(id: Long, context: Context) {
+        val workTag = "tag_$id"
         val workManager = WorkManager.getInstance(context.applicationContext!!)
         val state = workManager.getWorkInfosByTag(workTag).get()?.getOrNull(0)?.state
 
         if (state === WorkInfo.State.RUNNING || state === WorkInfo.State.ENQUEUED) {
             return
         }
+
         val workData = workDataOf(
-            DeleteWorker.fileUriKey to path,
-            DeleteWorker.fileNameKey to name
+            DeleteWorker.fileIdKey to id
         )
         val workRequest = OneTimeWorkRequestBuilder<DeleteWorker>()
             .addTag(workTag)
