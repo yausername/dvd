@@ -20,7 +20,7 @@ import androidx.navigation.ui.setupWithNavController
 import org.yausername.dvd.R
 import org.yausername.dvd.vm.VidInfoViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import org.yausername.dvd.utils.Utils.cleanUrl
+import org.yausername.dvd.utils.URLUtils.cleanUrl
 
 class MainActivity : AppCompatActivity(), NavActivity {
 

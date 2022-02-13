@@ -3,7 +3,7 @@ package org.yausername.dvd.utils
 import java.util.ArrayList
 import java.util.regex.Pattern
 
-object Utils {
+object URLUtils {
     /**
      * Returns a list with all links contained in the input
      */
