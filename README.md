@@ -18,7 +18,7 @@ Download latest APKs from the [releases page](https://github.com/yausername/dvd/
 </br>
 <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/3.jpg" alt="screenshot3" width="300"/> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/4.jpg" alt="screenshot4" width="300"/>
 </br>
-<img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg" alt="screenshot5" width="300"/> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/6.jpg" alt="screenshot4" width="300"/>
+<img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/5.jpg" alt="screenshot5" width="300"/> <img src="./fastlane/metadata/android/en-US/images/phoneScreenshots/6.jpg" alt="screenshot6" width="300"/>
 
 ## Donate
 You can support the project by donating to below addresses.
