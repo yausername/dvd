@@ -8,9 +8,10 @@ import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
-import org.yausername.dvd.R
 import com.yausername.youtubedl_android.YoutubeDL
 import com.yausername.youtubedl_android.YoutubeDLRequest
+import com.yausername.youtubedl_android.utils.Utils
+import org.yausername.dvd.R
 import java.util.*
 import java.util.regex.Matcher
 import java.util.regex.Pattern
@@ -55,14 +56,15 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
         }
 
         YoutubeDL.getInstance()
-            .execute(request) { progress, etaInSeconds, line ->
-                showProgress(id.hashCode(), progress.toInt(), line)
+            .execute(request) { line ->
+                showProgress(id.hashCode(), line)
             }
 
         return Result.success()
     }
 
-    private fun showProgress(id: Int, progress: Int, line: String) {
+    private fun showProgress(id: Int, line: String) {
+        val progress = Utils.getProgress(line).toInt()
         val notification = NotificationCompat.Builder(
             applicationContext,
             channelId
@@ -74,7 +76,7 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
                 NotificationCompat.BigTextStyle()
                     .bigText(line)
             )
-            .setProgress(100, progress, false)
+            .setProgress(100, progress, progress == 0)
             .build()
         notificationManager?.notify(id, notification)
     }

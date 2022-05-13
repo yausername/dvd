@@ -11,13 +11,14 @@ import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
 import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
+import com.yausername.youtubedl_android.YoutubeDL
+import com.yausername.youtubedl_android.YoutubeDLRequest
+import com.yausername.youtubedl_android.utils.Utils
+import org.apache.commons.io.IOUtils
 import org.yausername.dvd.R
 import org.yausername.dvd.database.AppDatabase
 import org.yausername.dvd.database.Download
 import org.yausername.dvd.database.DownloadsRepository
-import com.yausername.youtubedl_android.YoutubeDL
-import com.yausername.youtubedl_android.YoutubeDLRequest
-import org.apache.commons.io.IOUtils
 import org.yausername.dvd.utils.FileNameUtils
 import java.io.File
 import java.util.*
@@ -71,8 +72,8 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         var destUri: Uri? = null
         try {
             YoutubeDL.getInstance()
-                .execute(request) { progress, etaInSeconds, line ->
-                    showProgress(id.hashCode(), name, progress.toInt(), line)
+                .execute(request) { line ->
+                    showProgress(id.hashCode(), name, line)
                 }
             val treeUri = Uri.parse(downloadDir)
             val docId = DocumentsContract.getTreeDocumentId(treeUri)
@@ -113,7 +114,8 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         return Result.success()
     }
 
-    private fun showProgress(id: Int, name: String, progress: Int, line: String) {
+    private fun showProgress(id: Int, name: String, line: String) {
+        val progress = Utils.getProgress(line).toInt()
         val notification = NotificationCompat.Builder(
             applicationContext,
             channelId
@@ -125,7 +127,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
                 NotificationCompat.BigTextStyle()
                     .bigText(line)
             )
-            .setProgress(100, progress, false)
+            .setProgress(100, progress, progress == 0)
             .build()
         notificationManager?.notify(id, notification)
     }
