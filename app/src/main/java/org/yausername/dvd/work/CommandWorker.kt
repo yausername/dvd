@@ -10,7 +10,6 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.yausername.youtubedl_android.YoutubeDL
 import com.yausername.youtubedl_android.YoutubeDLRequest
-import com.yausername.youtubedl_android.utils.Utils
 import org.yausername.dvd.R
 import java.util.*
 import java.util.regex.Matcher
@@ -56,15 +55,14 @@ class CommandWorker(appContext: Context, params: WorkerParameters) :
         }
 
         YoutubeDL.getInstance()
-            .execute(request) { line ->
-                showProgress(id.hashCode(), line)
+            .execute(request) { progress, _, line ->
+                showProgress(id.hashCode(), progress.toInt(), line)
             }
 
         return Result.success()
     }
 
-    private fun showProgress(id: Int, line: String) {
-        val progress = Utils.getProgress(line).toInt()
+    private fun showProgress(id: Int, progress: Int, line: String) {
         val notification = NotificationCompat.Builder(
             applicationContext,
             channelId

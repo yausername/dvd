@@ -13,7 +13,6 @@ import androidx.work.ForegroundInfo
 import androidx.work.WorkerParameters
 import com.yausername.youtubedl_android.YoutubeDL
 import com.yausername.youtubedl_android.YoutubeDLRequest
-import com.yausername.youtubedl_android.utils.Utils
 import org.apache.commons.io.IOUtils
 import org.yausername.dvd.R
 import org.yausername.dvd.database.AppDatabase
@@ -72,8 +71,8 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         var destUri: Uri? = null
         try {
             YoutubeDL.getInstance()
-                .execute(request) { line ->
-                    showProgress(id.hashCode(), name, line, tmpFile)
+                .execute(request) { progress, _, line ->
+                    showProgress(id.hashCode(), name, progress.toInt(), line, tmpFile)
                 }
             val treeUri = Uri.parse(downloadDir)
             val docId = DocumentsContract.getTreeDocumentId(treeUri)
@@ -114,9 +113,8 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         return Result.success()
     }
 
-    private fun showProgress(id: Int, name: String, line: String, tmpFile: File) {
+    private fun showProgress(id: Int, name: String, progress: Int, line: String, tmpFile: File) {
         val text = line.replace(tmpFile.toString(), "")
-        val progress = Utils.getProgress(line).toInt()
         val notification = NotificationCompat.Builder(
             applicationContext,
             channelId
