@@ -177,7 +177,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
             acodecKey to vidFormat.acodec,
             vcodecKey to vidFormat.vcodec,
             downloadDirKey to downloadDir,
-            sizeKey to vidFormat.filesize
+            sizeKey to vidFormat.fileSize
         )
         val workRequest = OneTimeWorkRequestBuilder<DownloadWorker>()
             .addTag(workTag)

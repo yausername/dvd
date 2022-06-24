@@ -65,7 +65,7 @@ class VidInfoAdapter(private val clickListener: VidInfoListener) :
                 with(holder.itemView) {
                     format_tv.text = vidFormat.format
                     ext_tv.text = vidFormat.ext
-                    size_tv.text = Formatter.formatShortFileSize(context, vidFormat.filesize)
+                    size_tv.text = Formatter.formatShortFileSize(context, vidFormat.fileSize)
                     fps_tv.text = context.getString(R.string.fps_value, vidFormat.fps)
                     abr_tv.text = context.getString(R.string.abr_value, vidFormat.abr)
                     if (vidFormat.acodec != "none" && vidFormat.vcodec == "none") {
