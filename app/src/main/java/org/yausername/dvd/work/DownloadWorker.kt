@@ -126,7 +126,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
                 NotificationCompat.BigTextStyle()
                     .bigText(text)
             )
-            .setProgress(100, progress, progress == 0)
+            .setProgress(100, progress, progress == -1)
             .build()
         notificationManager?.notify(id, notification)
     }
