@@ -30,6 +30,8 @@
             </intent-filter>
 
         </activity>
+        <receiver android:name=".work.CancelReceiver">
+        </receiver>
     </application>
 
 </manifest>

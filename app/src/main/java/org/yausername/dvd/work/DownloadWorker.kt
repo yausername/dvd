@@ -2,10 +2,13 @@ package org.yausername.dvd.work
 
 import android.app.NotificationChannel
 import android.app.NotificationManager
+import android.app.PendingIntent
 import android.content.Context
+import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.DocumentsContract
+import android.util.Log
 import android.webkit.MimeTypeMap
 import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
@@ -22,7 +25,7 @@ import org.yausername.dvd.utils.FileNameUtils
 import java.io.File
 import java.util.*
 
-
+private const val TAG = "DownloadWorker"
 class DownloadWorker(appContext: Context, params: WorkerParameters) :
     CoroutineWorker(appContext, params) {
 
@@ -40,6 +43,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         val vcodec = inputData.getString(vcodecKey)
         val downloadDir = inputData.getString(downloadDirKey)!!
         val size = inputData.getLong(sizeKey, 0L)
+        val taskId = inputData.getString(taskIdKey)!!
 
         createNotificationChannel()
         val notificationId = id.hashCode()
@@ -71,8 +75,8 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         var destUri: Uri? = null
         try {
             YoutubeDL.getInstance()
-                .execute(request) { progress, _, line ->
-                    showProgress(id.hashCode(), name, progress.toInt(), line, tmpFile)
+                .execute(request, taskId) { progress, _, line ->
+                    showProgress(id.hashCode(), taskId, name, progress.toInt(), line, tmpFile)
                 }
             val treeUri = Uri.parse(downloadDir)
             val docId = DocumentsContract.getTreeDocumentId(treeUri)
@@ -113,8 +117,20 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         return Result.success()
     }
 
-    private fun showProgress(id: Int, name: String, progress: Int, line: String, tmpFile: File) {
+    private fun showProgress(
+        id: Int,
+        taskId: String,
+        name: String,
+        progress: Int,
+        line: String,
+        tmpFile: File
+    ) {
         val text = line.replace(tmpFile.toString(), "")
+        val intent = Intent(applicationContext, CancelReceiver::class.java)
+            .putExtra("taskId", taskId)
+            .putExtra("notificationId", id)
+
+        val pendingIntent = PendingIntent.getBroadcast(applicationContext, 1, intent, 0)
         val notification = NotificationCompat.Builder(
             applicationContext,
             channelId
@@ -127,6 +143,11 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
                     .bigText(text)
             )
             .setProgress(100, progress, progress == -1)
+            .addAction(
+                R.drawable.baseline_stop_24,
+                applicationContext.getString(R.string.cancel_download),
+                pendingIntent
+            )
             .build()
         notificationManager?.notify(id, notification)
     }
@@ -157,6 +178,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         const val vcodecKey = "vcodec"
         const val downloadDirKey = "downloadDir"
         const val sizeKey = "size"
+        const val taskIdKey = "taskId"
     }
 }
 
