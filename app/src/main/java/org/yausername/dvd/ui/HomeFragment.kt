@@ -37,6 +37,7 @@ import org.yausername.dvd.work.DownloadWorker.Companion.urlKey
 import org.yausername.dvd.work.DownloadWorker.Companion.vcodecKey
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import org.yausername.dvd.work.DownloadWorker.Companion.taskIdKey
 
 
 class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
@@ -177,7 +178,8 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
             acodecKey to vidFormat.acodec,
             vcodecKey to vidFormat.vcodec,
             downloadDirKey to downloadDir,
-            sizeKey to vidFormat.fileSize
+            sizeKey to vidFormat.fileSize,
+            taskIdKey to vidInfo.id
         )
         val workRequest = OneTimeWorkRequestBuilder<DownloadWorker>()
             .addTag(workTag)

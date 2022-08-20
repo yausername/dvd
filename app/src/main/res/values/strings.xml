@@ -50,4 +50,6 @@
     <string name="share">Share</string>
     <string name="delete">Delete</string>
     <string name="file_cannot_be_shared">This file cannot be shared.</string>
+    <string name="download_cancelled">Download task cancelled</string>
+    <string name="cancel_download">Cancel download</string>
 </resources>

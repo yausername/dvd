@@ -1,6 +1,9 @@
 package org.yausername.dvd
 
+import android.annotation.SuppressLint
 import android.app.Application
+import android.content.Context
+import android.content.IntentFilter
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.preference.PreferenceManager
@@ -10,6 +13,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import org.yausername.dvd.work.CancelReceiver
 
 class App : Application() {
 
@@ -22,17 +26,22 @@ class App : Application() {
                 AppCompatDelegate.MODE_NIGHT_YES.toString()
             )!!.toInt()
         )
-
-        val application = this
+        context = this.applicationContext
         GlobalScope.launch {
             try {
                 withContext(Dispatchers.IO) {
-                    YoutubeDL.getInstance().init(application)
-                    FFmpeg.getInstance().init(application)
+                    YoutubeDL.getInstance().init(this@App)
+                    FFmpeg.getInstance().init(this@App)
                 }
             } catch (e: Exception) {
                 Toast.makeText(applicationContext, R.string.init_failed, Toast.LENGTH_LONG).show()
             }
         }
+        registerReceiver(CancelReceiver(), IntentFilter())
+    }
+
+    companion object {
+        @SuppressLint("StaticFieldLeak")
+        lateinit var context: Context
     }
 }
