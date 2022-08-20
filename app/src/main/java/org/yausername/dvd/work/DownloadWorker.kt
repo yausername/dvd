@@ -130,7 +130,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
             .putExtra("taskId", taskId)
             .putExtra("notificationId", id)
 
-        val pendingIntent = PendingIntent.getBroadcast(applicationContext, 1, intent, 0)
+        val pendingIntent = PendingIntent.getBroadcast(applicationContext, 0, intent, PendingIntent.FLAG_ONE_SHOT)
         val notification = NotificationCompat.Builder(
             applicationContext,
             channelId
