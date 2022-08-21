@@ -68,7 +68,7 @@ android {
 dependencies {
     def nav_version = "2.3.0-rc01"
     def material_version = "1.3.0-alpha01"
-    def room_version = "2.5.0-alpha01"
+    def room_version = "2.2.5"
     def arch_lifecycle_version = "2.2.0"
     def coroutines_version = "1.3.4"
     def work_version = "2.3.4"
