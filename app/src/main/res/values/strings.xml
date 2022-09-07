@@ -15,7 +15,9 @@
     <string name="init_failed">Initialization failed</string>
     <string name="app_not_found">No app found on device for opening this content</string>
     <string name="file_not_found">The selected file does not exist anymore</string>
-    <string name="download_location_title">Download location</string>
+    <string name="download_options_title">Download options</string>
+    <string name="download_location">Download location</string>
+    <string name="download_format_name">Convert to… (optional)</string>
     <string name="action_choose_folder">Choose folder</string>
     <string name="download_already_running">A download is already running</string>
     <string name="download_queued">Download queued. Check notification for progress</string>
