@@ -100,8 +100,8 @@ dependencies {
 
     implementation "androidx.work:work-runtime-ktx:$work_version"
 
-    implementation "com.github.yausername.youtubedl-android:library:0.13.3"
-    implementation "com.github.yausername.youtubedl-android:ffmpeg:0.13.3"
+    implementation "com.github.yausername.youtubedl-android:library:3a0252d88b4ae573068c63c3d08fc52c66102d55"
+    implementation "com.github.yausername.youtubedl-android:ffmpeg:3a0252d88b4ae573068c63c3d08fc52c66102d55"
 
     implementation "com.squareup.picasso:picasso:$picassoVersion"
 
