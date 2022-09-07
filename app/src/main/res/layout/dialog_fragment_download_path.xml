@@ -20,7 +20,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="30dp"
             android:maxLines="1"
-            android:inputType="text"/>
+            android:inputType="text"
+            android:hint="@string/download_convert_hint"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

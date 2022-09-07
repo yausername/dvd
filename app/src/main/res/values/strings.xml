@@ -18,6 +18,7 @@
     <string name="download_options_title">Download options</string>
     <string name="download_location">Download location</string>
     <string name="download_format_name">Convert to… (optional)</string>
+    <string name="download_convert_hint">(mp3, wav, etc.)</string>
     <string name="action_choose_folder">Choose folder</string>
     <string name="download_already_running">A download is already running</string>
     <string name="download_queued">Download queued. Check notification for progress</string>
