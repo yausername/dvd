@@ -9,7 +9,7 @@
 
     <Preference
         android:key="@string/download_location_key"
-        android:title="@string/download_location_title"
+        android:title="@string/download_location"
         app:iconSpaceReserved="false"></Preference>
 
     <Preference

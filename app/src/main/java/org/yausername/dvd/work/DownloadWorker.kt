@@ -8,7 +8,6 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.provider.DocumentsContract
-import android.util.Log
 import android.webkit.MimeTypeMap
 import androidx.core.app.NotificationCompat
 import androidx.work.CoroutineWorker
@@ -44,6 +43,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         val downloadDir = inputData.getString(downloadDirKey)!!
         val size = inputData.getLong(sizeKey, 0L)
         val taskId = inputData.getString(taskIdKey)!!
+        val convFormat = inputData.getString(convertFormatKey)!!;
 
         createNotificationChannel()
         val notificationId = id.hashCode()
@@ -64,13 +64,19 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         tmpFile.delete()
         tmpFile.mkdir()
         tmpFile.deleteOnExit()
-        request.addOption("-o", "${tmpFile.absolutePath}/${name}.%(ext)s")
         val videoOnly = vcodec != "none" && acodec == "none"
         if (videoOnly) {
             request.addOption("-f", "${formatId}+bestaudio")
         } else {
             request.addOption("-f", formatId)
         }
+        if (convFormat != ""){
+            if (vcodec == "none"){
+                request.addOption("-x");
+                request.addOption("--audio-format", convFormat);
+            }
+        }
+        request.addOption("-o", "${tmpFile.absolutePath}/${name}.%(ext)s")
 
         var destUri: Uri? = null
         try {
@@ -179,6 +185,7 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
         const val downloadDirKey = "downloadDir"
         const val sizeKey = "size"
         const val taskIdKey = "taskId"
+        const val convertFormatKey = "convFormat"
     }
 }
 

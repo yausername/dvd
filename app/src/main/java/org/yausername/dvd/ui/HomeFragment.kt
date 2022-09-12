@@ -37,6 +37,7 @@ import org.yausername.dvd.work.DownloadWorker.Companion.urlKey
 import org.yausername.dvd.work.DownloadWorker.Companion.vcodecKey
 import kotlinx.android.synthetic.main.fragment_home.*
 import kotlinx.android.synthetic.main.fragment_home.view.*
+import org.yausername.dvd.work.DownloadWorker.Companion.convertFormatKey
 import org.yausername.dvd.work.DownloadWorker.Companion.taskIdKey
 
 
@@ -58,6 +59,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
         initViews(view)
     }
 
+    var lastAttemptedVidFormat: VidInfoItem.VidFormatItem? = null
     private fun initViews(view: View) {
         val vidFormatsVm =
             ViewModelProvider(activity as MainActivity).get(VidInfoViewModel::class.java)
@@ -66,9 +68,10 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
                 VidInfoAdapter(VidInfoListener listener@{
                     vidFormatsVm.selectedItem = it
                     if (!isStoragePermissionGranted()) {
+                        lastAttemptedVidFormat = vidFormatsVm.selectedItem
                         return@listener
                     }
-                    DownloadPathDialogFragment().show(
+                    DownloadPathDialogFragment(vidFormatsVm.selectedItem).show(
                         childFragmentManager,
                         downloadLocationDialogTag
                     )
@@ -141,7 +144,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
                         setDefaultDownloadLocation(it.toString())
                         val vidFormatsVm =
                             ViewModelProvider(activity as MainActivity).get(VidInfoViewModel::class.java)
-                        startDownload(vidFormatsVm.selectedItem, it.toString())
+                        startDownload(vidFormatsVm.selectedItem, it.toString(), "")
                     }
                 }
             }
@@ -155,7 +158,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
             .putString(getString(R.string.download_location_key), path).apply()
     }
 
-    private fun startDownload(vidFormatItem: VidInfoItem.VidFormatItem, downloadDir: String) {
+    private fun startDownload(vidFormatItem: VidInfoItem.VidFormatItem, downloadDir: String, convFormat: String?) {
         val vidInfo = vidFormatItem.vidInfo
         val vidFormat = vidFormatItem.vidFormat
         val workTag = vidInfo.id
@@ -179,7 +182,8 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
             vcodecKey to vidFormat.vcodec,
             downloadDirKey to downloadDir,
             sizeKey to vidFormat.fileSize,
-            taskIdKey to vidInfo.id
+            taskIdKey to vidInfo.id,
+            convertFormatKey to convFormat
         )
         val workRequest = OneTimeWorkRequestBuilder<DownloadWorker>()
             .addTag(workTag)
@@ -207,7 +211,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
             Toast.makeText(context, R.string.invalid_download_location, Toast.LENGTH_SHORT).show()
             return
         }
-        startDownload(vidFormatsVm.selectedItem, path)
+        startDownload(vidFormatsVm.selectedItem, path, dialog.convertFormat)
     }
 
     override fun onFilePicker(dialog: DownloadPathDialogFragment) {
@@ -246,7 +250,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            DownloadPathDialogFragment().show(
+            DownloadPathDialogFragment(lastAttemptedVidFormat).show(
                 childFragmentManager,
                 downloadLocationDialogTag
             )

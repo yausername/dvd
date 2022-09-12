@@ -3,11 +3,44 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <TextView
-        android:id="@+id/download_path_tv"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="10dp"
-        android:text="@string/val_not_set" />
+        android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/download_format_convs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="@string/download_format_name" />
+            <EditText
+                android:id="@+id/download_format_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:maxLines="1"
+                android:inputType="text"
+                android:hint="@string/download_convert_hint"/>
+        </LinearLayout>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:textStyle="bold"
+            android:text="@string/download_location" />
+        <TextView
+            android:id="@+id/download_path_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="10dp"
+            android:text="@string/val_not_set" />
+    </LinearLayout>
 </RelativeLayout>
