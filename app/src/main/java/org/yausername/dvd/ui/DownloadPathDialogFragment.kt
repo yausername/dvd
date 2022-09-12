@@ -14,8 +14,9 @@ import androidx.fragment.app.DialogFragment
 import androidx.preference.PreferenceManager
 import org.yausername.dvd.R
 import kotlinx.android.synthetic.main.dialog_fragment_download_path.view.*
+import org.yausername.dvd.model.VidInfoItem
 
-class DownloadPathDialogFragment : DialogFragment(), TextWatcher {
+class DownloadPathDialogFragment(val vidFormat: VidInfoItem.VidFormatItem?) : DialogFragment(), TextWatcher {
 
     private lateinit var listener: DialogListener
 
@@ -43,6 +44,12 @@ class DownloadPathDialogFragment : DialogFragment(), TextWatcher {
 
             val view = inflater.inflate(R.layout.dialog_fragment_download_path, null)
             view.download_format_name.addTextChangedListener(this)
+
+            //remove the conversion field if not downloading *only* audio
+            if (vidFormat == null || !(vidFormat.vidFormat.acodec != "none" && vidFormat.vidFormat.vcodec == "none")) {
+                view.download_format_convs.removeAllViews()
+            }
+
             val sharedPrefs = PreferenceManager.getDefaultSharedPreferences(context)
             val location = sharedPrefs.getString(getString(R.string.download_location_key), null)
             if (location != null) {

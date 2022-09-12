@@ -7,21 +7,27 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-        <TextView
+        <LinearLayout
+            android:id="@+id/download_format_convs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="10dp"
-            android:textStyle="bold"
-            android:text="@string/download_format_name" />
-        <EditText
-            android:id="@+id/download_format_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="30dp"
-            android:maxLines="1"
-            android:inputType="text"
-            android:hint="@string/download_convert_hint"/>
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="10dp"
+                android:textStyle="bold"
+                android:text="@string/download_format_name" />
+            <EditText
+                android:id="@+id/download_format_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="30dp"
+                android:maxLines="1"
+                android:inputType="text"
+                android:hint="@string/download_convert_hint"/>
+        </LinearLayout>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -71,16 +71,12 @@ class DownloadWorker(appContext: Context, params: WorkerParameters) :
             request.addOption("-f", formatId)
         }
         if (convFormat != ""){
-            if (vcodec != "none"){
-                request.addOption("--format", convFormat);
-            } else {
-                request.addOption("-x", "");
+            if (vcodec == "none"){
+                request.addOption("-x");
                 request.addOption("--audio-format", convFormat);
             }
-            request.addOption("-o", "${tmpFile.absolutePath}/${name}.${convFormat}")
-        } else {
-            request.addOption("-o", "${tmpFile.absolutePath}/${name}.%(ext)s")
         }
+        request.addOption("-o", "${tmpFile.absolutePath}/${name}.%(ext)s")
 
         var destUri: Uri? = null
         try {

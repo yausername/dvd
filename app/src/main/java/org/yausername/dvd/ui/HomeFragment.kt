@@ -59,6 +59,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
         initViews(view)
     }
 
+    var lastAttemptedVidFormat: VidInfoItem.VidFormatItem? = null
     private fun initViews(view: View) {
         val vidFormatsVm =
             ViewModelProvider(activity as MainActivity).get(VidInfoViewModel::class.java)
@@ -67,9 +68,10 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
                 VidInfoAdapter(VidInfoListener listener@{
                     vidFormatsVm.selectedItem = it
                     if (!isStoragePermissionGranted()) {
+                        lastAttemptedVidFormat = vidFormatsVm.selectedItem
                         return@listener
                     }
-                    DownloadPathDialogFragment().show(
+                    DownloadPathDialogFragment(vidFormatsVm.selectedItem).show(
                         childFragmentManager,
                         downloadLocationDialogTag
                     )
@@ -248,7 +250,7 @@ class HomeFragment : Fragment(), SearchView.OnQueryTextListener,
     ) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults)
         if (requestCode == 1 && grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            DownloadPathDialogFragment().show(
+            DownloadPathDialogFragment(lastAttemptedVidFormat).show(
                 childFragmentManager,
                 downloadLocationDialogTag
             )
